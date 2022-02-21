@@ -7,8 +7,8 @@ public class Main {
 
     public static int modifyNum(int n) { // Sunt aplicate calculele de modificare ale lui n
         n = n * 3;
-        n = n + 21;
-        n = n + 255;
+        n = n + Integer.parseInt("10101",2);
+        n = n + Integer.parseInt("FF", 16);
         n = n * 6;
         return n;
     }
