@@ -8,3 +8,8 @@ Laboratorul 1:
 	- Am calculat indexul final;
 	- Am afisat mesajul final.
 -----------------------------------
+Laboratorul 2:
+	- Clasa Event pentru reprezentarea evenimentelor;
+	- Clasa Room pentru reprezentarea incaperilor;
+	- Clasa Link pentru a asigna evenimentelor incaperile respective;
+	- Metodele necesare sunt implementate.
