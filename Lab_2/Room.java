@@ -5,16 +5,12 @@ enum RoomType { //room types available
 
     @java.lang.Override
     public java.lang.String toString() { //used for printing the room type
-        switch (this) {
-            case LECTURE_HALL:
-                return "Lecture Hall";
-            case COMPUTER_LAB:
-                return "Computer Lab";
-            case OTHER:
-                return "Other";
-            default:
-                return null;
-        }
+        return switch (this) {
+            case LECTURE_HALL -> "Lecture Hall";
+            case COMPUTER_LAB -> "Computer Lab";
+            case OTHER -> "Other";
+            default -> null;
+        };
     }
 }
 
