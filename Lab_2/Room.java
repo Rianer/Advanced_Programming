@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Objects;
+
 enum RoomType { //room types available
     LECTURE_HALL, COMPUTER_LAB, OTHER;
 
@@ -63,5 +65,13 @@ public class Room { //class which defines a Room
                 ", roomName='" + roomName + '\'' +
                 ", cap=" + cap +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return cap == room.cap && roomType == room.roomType && roomName.equals(room.roomName);
     }
 }

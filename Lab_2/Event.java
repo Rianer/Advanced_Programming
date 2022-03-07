@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Objects;
+
 public class Event { //class which defines an Event
     int startTime; //the time when the event starts
     int endTime; //the time when the event ends
@@ -62,5 +64,14 @@ public class Event { //class which defines an Event
                 ", eventName='" + eventName + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return startTime == event.startTime && endTime == event.endTime && size == event.size && Objects.equals(eventName, event.eventName);
+    }
+
 }
 

@@ -6,6 +6,7 @@ public class Main {
         //declaring 5 events
         Event course1 = new Event(8, 10, 100, "C1");
         Event course2 = new Event(10, 12, 100, "C2");
+        Event course3 = new Event(10, 12, 100, "C2");
         Event lecture1 = new Event(8, 10, 30, "L1");
         Event lecture2 = new Event(8, 10, 30, "L2");
         Event lecture3 = new Event(10, 12, 30, "L3");
@@ -34,5 +35,17 @@ public class Main {
         System.out.println(link3.toString());
         System.out.println(link4.toString());
         System.out.println(link5.toString());
+
+        System.out.println(course2.equals(course3));
+
+
+        Schedule schedule = new Schedule();
+        schedule.newAssignment(link1);
+        schedule.newAssignment(link2);
+        schedule.newAssignment(link3);
+        schedule.newAssignment(link3);
+        schedule.newAssignment(link4);
+        schedule.newAssignment(link5);
+        System.out.println(schedule.toString());
     }
 }
