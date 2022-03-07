@@ -1,7 +1,8 @@
 package com.company;
 
-public class Router extends Node implements Identifiable{
+public class Router extends Node implements Identifiable{//describes a Node of type Router
     String ipAddress;
+    //Constructors
     public Router(String nodeName) {
         super(nodeName);
     }
@@ -13,6 +14,7 @@ public class Router extends Node implements Identifiable{
     public Router(String nodeName, String hardwareAddress, String mapLocation) {
         super(nodeName, hardwareAddress, mapLocation);
     }
+    //Overrides for interface Identifiable
     @Override
     public String getIp() {
         return ipAddress;

@@ -2,11 +2,11 @@ package com.company;
 
 import java.util.ArrayList;
 
-public abstract class Node {
+public abstract class Node { //describes nodes in a network
     String nodeName;
     String hardwareAddress;
     String mapLocation;
-
+    //Constructors
     public Node(String nodeName) {
         this.nodeName = nodeName;
         this.hardwareAddress = "Unknown";
@@ -24,7 +24,7 @@ public abstract class Node {
         this.hardwareAddress = hardwareAddress;
         this.mapLocation = mapLocation;
     }
-
+    //Getters and Setters
     public String getNodeName() {
         return nodeName;
     }
@@ -48,7 +48,7 @@ public abstract class Node {
     public void setMapLocation(String mapLocation) {
         this.mapLocation = mapLocation;
     }
-
+    //Converts node information intro string format
     @Override
     public String toString() {
         return "\nNode{" +
