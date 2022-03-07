@@ -13,10 +13,10 @@ public abstract class Node {
         this.mapLocation = "Unknown";
     }
 
-    public Node(String nodeName, String hardwareAddress) {
+    public Node(String nodeName, String mapLocation) {
         this.nodeName = nodeName;
-        this.hardwareAddress = hardwareAddress;
-        this.mapLocation = "Unknown";
+        this.hardwareAddress = "Unknown";
+        this.mapLocation = mapLocation;
     }
 
     public Node(String nodeName, String hardwareAddress, String mapLocation) {
@@ -51,10 +51,10 @@ public abstract class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
+        return "\nNode{" +
                 "nodeName='" + nodeName + '\'' +
                 ", hardwareAddress='" + hardwareAddress + '\'' +
                 ", mapLocation='" + mapLocation + '\'' +
-                "}\n";
+                "}";
     }
 }

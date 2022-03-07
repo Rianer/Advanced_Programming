@@ -13,11 +13,11 @@ public class Router extends Node implements Identifiable{
     public Router(String nodeName, String hardwareAddress, String mapLocation) {
         super(nodeName, hardwareAddress, mapLocation);
     }
-
+    @Override
     public String getIp() {
         return ipAddress;
     }
-
+    @Override
     public void setIp(String ip) {
         this.ipAddress = ip;
     }
