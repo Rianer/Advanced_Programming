@@ -2,44 +2,13 @@ package com.company;
 
 import java.util.Objects;
 
-enum RoomType { //room types available
-    LECTURE_HALL, COMPUTER_LAB, OTHER;
+abstract public class Room { //class which defines a Room
+    String roomName;
+    int cap;
 
-    @java.lang.Override
-    public java.lang.String toString() { //used for printing the room type
-        return switch (this) {
-            case LECTURE_HALL -> "Lecture Hall";
-            case COMPUTER_LAB -> "Computer Lab";
-            case OTHER -> "Other";
-            default -> null;
-        };
-    }
-}
-
-public class Room { //class which defines a Room
-    RoomType roomType; //room's type
-    String roomName; //room's name, if not specified it is set to "Unknown"
-    int cap; //room's student limit
-
-    public Room(RoomType roomType, int cap) { //constructor without specifying the name
-        this.roomType = roomType;
+    public Room(String roomName, int cap) {
+        this.roomName = roomName;
         this.cap = cap;
-        this.roomName = "Unknown";
-    }
-
-    public Room(RoomType roomType, int cap, String name) { //constructor with the name specified
-        this.roomType = roomType;
-        this.cap = cap;
-        this.roomName = name;
-    }
-
-    //Getters and Setters for all the components
-    public RoomType getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
     }
 
     public int getCap() {
@@ -61,7 +30,7 @@ public class Room { //class which defines a Room
     @Override
     public String toString() { //used for printing Room's properties
         return "Room{" +
-                "roomType=" + roomType +
+                "roomType=" + this.getClass() +
                 ", roomName='" + roomName + '\'' +
                 ", cap=" + cap +
                 '}';
@@ -72,6 +41,6 @@ public class Room { //class which defines a Room
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
-        return cap == room.cap && roomType == room.roomType && roomName.equals(room.roomName);
+        return cap == room.cap && roomName.equals(room.roomName);
     }
 }
