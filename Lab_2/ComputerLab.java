@@ -1,8 +1,8 @@
 package com.company;
 
-public class ComputerLab extends Room {
+public class ComputerLab extends Room {//describes a Room of type ComputerLab
     String operatingSystemName;
-
+    //Constructors
     public ComputerLab(String roomName, int cap) {
         super(roomName, cap);
         this.operatingSystemName = "Unknown";

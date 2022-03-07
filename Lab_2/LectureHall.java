@@ -1,9 +1,9 @@
 package com.company;
 
-public class LectureHall extends Room {
+public class LectureHall extends Room {//describes a Room of type LectureHall
     boolean hasProjector;
     boolean projectorInfo;
-
+    //Constructors
     public LectureHall(String roomName, int cap) {
         super(roomName, cap);
         this.projectorInfo = false;

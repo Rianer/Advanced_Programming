@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
-    List<Event> eventList = new ArrayList<Event>();
-    List<Room> roomList = new ArrayList<Room>();
+    List<Event> eventList = new ArrayList<Event>(); //list of given events
+    List<Room> roomList = new ArrayList<Room>(); //list of given rooms
 
 
     public Solution() {
     }
 
-    void feedEvent(Event event) {
+    void feedEvent(Event event) { //push an event to the list of events
         boolean instanceExists = false;
+        //Checks if the provided event is unique
         for (int index = 0; index < eventList.size(); index++) {
             instanceExists = event.equals(eventList.get(index));
             if (instanceExists) {
@@ -26,8 +27,9 @@ public class Solution {
         }
     }
 
-    void feedRoom(Room room){
+    void feedRoom(Room room){ //push a room to the list of rooms
         boolean instanceExists = false;
+        //Checks if the provided room is unique
         for (int index = 0; index < roomList.size(); index++) {
             instanceExists = room.equals(roomList.get(index));
             if (instanceExists) {
@@ -41,7 +43,7 @@ public class Solution {
         }
     }
 
-    Schedule giveSolution(){
+    Schedule giveSolution(){ //calculate the solution and returns it as a Schedule
         Schedule schedule = new Schedule();
         int bestRoom = 0;
         List<Integer> freeTime = new ArrayList<Integer>();
