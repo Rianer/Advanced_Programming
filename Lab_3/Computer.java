@@ -2,43 +2,56 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Computer extends Node implements Storage, Identifiable{ //describes a Node of type Computer
-    String ipAddress;
-    ArrayList<Double> dataSizeList = new ArrayList<Double>(); //list that remembers the size of the data stored
-    ArrayList<String> dataList = new ArrayList<String>(); //list that stores data
+public class Computer extends Node implements Storage, Identifiable { //describes a Node of type Computer
+    String ipAddress = "-";
+    double storage;
     //Constructors
+
     public Computer(String nodeName) {
         super(nodeName);
+        this.ipAddress = "Unknown";
     }
 
-    public Computer(String nodeName, String hardwareAddress) {
-        super(nodeName, hardwareAddress);
+    public Computer(String nodeName, String mapLocation) {
+        super(nodeName, mapLocation);
+        this.ipAddress = "Unknown";
     }
 
-    public Computer(String nodeName, String hardwareAddress, String mapLocation) {
-        super(nodeName, hardwareAddress, mapLocation);
+    public Computer(String nodeName, String mapLocation, String hardwareAddress) {
+        super(nodeName, mapLocation, hardwareAddress);
+        this.ipAddress = "Unknown";
     }
+
     //Overrides from interface Storage
+
     @Override
-    public void storeData(String data, double size) {
-        dataList.add(data);
-        dataSizeList.add(size);
+    public void setStorage(double size) {
+        this.storage = size;
     }
+
     @Override
-    public String getData(int index) {
-        return dataList.get(index);
+    public double getStorage() {
+        return this.storage;
     }
-    @Override
-    public double getDataSize(int index) {
-        return dataSizeList.get(index);
-    }
-    //Overrides from interface Identifiable
+
     @Override
     public String getIp() {
         return ipAddress;
     }
+
     @Override
     public void setIp(String ip) {
         this.ipAddress = ipAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "\nComputer{" +
+                "nodeName='" + nodeName + '\'' +
+                ", hardwareAddress='" + hardwareAddress + '\'' +
+                ", mapLocation='" + mapLocation + '\'' +
+                ", storage=" + storage +
+                ", ipAddress='" + ipAddress + '\'' +
+                '}';
     }
 }

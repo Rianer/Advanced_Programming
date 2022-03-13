@@ -1,7 +1,11 @@
 package com.company;
 
 public interface Storage {
-    void storeData(String data, double size);
-    String getData(int index);
-    double getDataSize(int index);
+    void setStorage(double size);
+
+    double getStorage();
+
+    default double getStorageMb() {
+        return getStorage() * 1024;
+    }
 }
