@@ -24,7 +24,9 @@ public class Street {
         this.length = length;
         this.link = new ArrayList<Intersection>();
         link.add(o1);
+        o1.newStreet();
         link.add(o2);
+        o2.newStreet();
     }
 
     public String getName() {
@@ -49,7 +51,9 @@ public class Street {
         }
         else{
             link.add(o1);
+            o1.newStreet();
             link.add(o2);
+            o2.newStreet();
         }
     }
 
@@ -61,6 +65,10 @@ public class Street {
         Faker faker = new Faker();
         String streetAddress = faker.address().streetName();
         setName(streetAddress);
+    }
+
+    public int getConnectionNumber(){
+        return link.get(0).numberOfStreets + link.get(1).numberOfStreets - 2;
     }
 
     @Override

@@ -33,7 +33,9 @@ public class Lab4 {
 
         LinkedList<Street> streetsList = new LinkedList<Street>(Arrays.asList(street1, street2, street3, street4, street5, street6, street7,
                                          street8, street9, street10, street11, street12, street13, street14, street15, street16));
+        
         streetsList.stream().forEach(Street::generateFakeName);
+
         streetsList.sort(new Comparator<Street>() {
             @Override
             public int compare(Street o1, Street o2) {
