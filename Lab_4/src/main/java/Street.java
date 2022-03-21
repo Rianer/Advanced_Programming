@@ -68,7 +68,7 @@ public class Street {
         return "Street{" +
                 "name='" + name + '\'' +
                 ", length=" + length +
-                ", intersections= (" + this.getIntersections().get(0).getName() +
+                ", intersections=(" + this.getIntersections().get(0).getName() +
                 ", " + this.getIntersections().get(1).getName() +
                 ") }";
     }
