@@ -1,1 +1,1 @@
-[{"id":"book2","title":"My Book","author":"Me","type":"book","location":"http://mysite.com/book"}]
+[{"id":"book1","title":"My Book","author":"Me","type":"book","location":"http://mysite.com/book"},{"id":"book2","title":"My Other Book","author":"Me","type":"book","location":"http://mysite.com/book2"}]
