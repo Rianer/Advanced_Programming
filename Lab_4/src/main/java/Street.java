@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import com.github.javafaker.Faker;
 
 public class Street {
     String name;
@@ -16,6 +18,7 @@ public class Street {
         this.length = length;
         this.link = new ArrayList<Intersection>(link);
     }
+
     public Street(String name, int length, Intersection o1, Intersection o2) {
         this.name = name;
         this.length = length;
@@ -48,5 +51,25 @@ public class Street {
             link.add(o1);
             link.add(o2);
         }
+    }
+
+    public ArrayList<Intersection> getIntersections(){
+        return link;
+    }
+
+    void generateFakeName(){
+        Faker faker = new Faker();
+        String streetAddress = faker.address().streetName();
+        setName(streetAddress);
+    }
+
+    @Override
+    public String toString() {
+        return "Street{" +
+                "name='" + name + '\'' +
+                ", length=" + length +
+                ", intersections= (" + this.getIntersections().get(0).getName() +
+                ", " + this.getIntersections().get(1).getName() +
+                ") }";
     }
 }

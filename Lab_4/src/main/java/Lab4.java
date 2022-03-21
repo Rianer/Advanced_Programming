@@ -10,7 +10,9 @@ public class Lab4 {
                 .add(new Intersection("Int_F")).add(new Intersection("Int_G"))
                 .add(new Intersection("Int_H")).add(new Intersection("Int_I")).build();
 
+
         ArrayList<Intersection> intersectionsList = new ArrayList<Intersection>(streamBuilder.toList());
+        intersectionsList.stream().forEach(Intersection::generateFakeName);
 
         Street street1 = new Street("Street One", 2, intersectionsList.get(0), intersectionsList.get(1));
         Street street2 = new Street("Street Two", 2, intersectionsList.get(0), intersectionsList.get(2));
@@ -31,8 +33,7 @@ public class Lab4 {
 
         LinkedList<Street> streetsList = new LinkedList<Street>(Arrays.asList(street1, street2, street3, street4, street5, street6, street7,
                                          street8, street9, street10, street11, street12, street13, street14, street15, street16));
-
-        System.out.println(streetsList.get(6).getName());
+        streetsList.stream().forEach(Street::generateFakeName);
         streetsList.sort(new Comparator<Street>() {
             @Override
             public int compare(Street o1, Street o2) {
@@ -40,8 +41,10 @@ public class Lab4 {
             }
         });
 
-        System.out.println(streetsList.get(6).getName());
-
         Set<Intersection> intersectionSet = new HashSet<Intersection>(intersectionsList);
+
+        City myCity = new City(streetsList, intersectionSet);
+
+        myCity.showStreetsLongerThan(2);
     }
 }
