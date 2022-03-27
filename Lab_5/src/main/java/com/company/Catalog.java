@@ -1,56 +1,116 @@
 package com.company;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
-import java.io.File;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.Version;
+
+import java.awt.*;
+import java.io.*;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Catalog {
-    List<Item> itemList;
+public class Catalog extends AddCommand implements SaveCommand, ListCommand, ViewCommand, LoadCommand, ReportCommand {
 
-    Catalog(){
-        itemList = new ArrayList<Item>();
+    public Catalog() {
     }
 
-    public Catalog(List<Item> itemList) {
-        this.itemList = itemList;
+    public String getCatalogName() {
+        return name;
     }
 
-    public void add(Item newItem){
-        itemList.add(newItem);
+    public void setCatalogName(String name) {
+        this.name = name;
+    }
+
+    public List<Item> getItemList() {
+        return list;
+    }
+
+    public void setItemList(List<Item> list) {
+        this.list = list;
     }
 
     @Override
     public String toString() {
         return "Catalog{" +
-                "itemList=" + itemList +
+                "list=" + list +
                 '}';
     }
 
-    public void save(){
-        try{
+    @Override
+    public void save(String path) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(Paths.get("catalog.json").toFile(), itemList);
-        }
-        catch (Exception ex){
+            mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+            mapper.writeValue(Paths.get(path).toFile(), this);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public List<Item> toList(){
-        return itemList;
+    @Override
+    public void list() {
+        for (Item iterator : list) {
+            System.out.println(iterator);
+        }
     }
 
-    public void load(String path){
-        ObjectMapper mapper = new ObjectMapper();
+    @Override
+    public void view(String filePath) {
         try {
-            itemList = mapper.readValue(new File(path), Catalog.class).toList();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+            Desktop desktop = Desktop.getDesktop();
+            File myFile = new File(filePath);
+            desktop.open(myFile);
+        } catch (IOException ex) {
         }
 
+    }
+
+    public void load(String path) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Catalog auxCatalog = mapper.readValue(new File(path), Catalog.class);
+            this.list = auxCatalog.list;
+            this.name = auxCatalog.name;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void report() {
+        try{
+            Configuration cfg = new Configuration(new Version("2.3.23"));
+            cfg.setClassForTemplateLoading(Catalog.class, "/");
+
+            Template template = cfg.getTemplate("index.ftl");
+
+            Map<String, Object> templateData = new HashMap<>();
+            templateData.put("items", list);
+
+            StringWriter out = new StringWriter();
+
+            template.process(templateData, out);
+            //System.out.println(out.getBuffer().toString());
+            String output = out.toString();
+            out.flush();
+
+            FileWriter fileWriter = new FileWriter("index.html");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(output);
+            printWriter.close();
+
+            this.view("index.html");
+
+        }
+        catch (IOException | TemplateException e){
+            e.printStackTrace();
+        }
     }
 }

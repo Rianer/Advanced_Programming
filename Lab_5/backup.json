@@ -1,0 +1,62 @@
+{
+  "name" : "Unknown",
+  "list" : [ {
+    "type" : "Book",
+    "id" : "book1",
+    "title" : "My Book",
+    "author" : "Me",
+    "location" : "http://mysite.com/book",
+    "type" : "book"
+  }, {
+    "type" : "Book",
+    "id" : "book2",
+    "title" : "My Other Book",
+    "author" : "Me",
+    "location" : "http://mysite.com/book2",
+    "type" : "book"
+  }, {
+    "type" : "Article",
+    "id" : "article1",
+    "title" : "Java",
+    "author" : "Peter Parker",
+    "location" : "C:\\Desktop",
+    "type" : "article"
+  }, {
+    "type" : "Article",
+    "id" : "article2",
+    "title" : "HTML/CSS",
+    "author" : "Bruce Wayne",
+    "location" : "www.gotham.com/article2",
+    "type" : "article"
+  } ],
+  "catalogName" : "Unknown",
+  "itemList" : [ {
+    "type" : "Book",
+    "id" : "book1",
+    "title" : "My Book",
+    "author" : "Me",
+    "location" : "http://mysite.com/book",
+    "type" : "book"
+  }, {
+    "type" : "Book",
+    "id" : "book2",
+    "title" : "My Other Book",
+    "author" : "Me",
+    "location" : "http://mysite.com/book2",
+    "type" : "book"
+  }, {
+    "type" : "Article",
+    "id" : "article1",
+    "title" : "Java",
+    "author" : "Peter Parker",
+    "location" : "C:\\Desktop",
+    "type" : "article"
+  }, {
+    "type" : "Article",
+    "id" : "article2",
+    "title" : "HTML/CSS",
+    "author" : "Bruce Wayne",
+    "location" : "www.gotham.com/article2",
+    "type" : "article"
+  } ]
+}

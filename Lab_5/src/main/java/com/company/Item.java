@@ -1,5 +1,17 @@
 package com.company;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
+
+@JsonTypeInfo(use = Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @Type(value = Article.class),
+        @Type(value = Book.class),
+})
 public abstract class Item {
     public String id;
     public String title;
@@ -12,6 +24,9 @@ public abstract class Item {
         this.title = title;
         this.author = author;
         this.location = location;
+    }
+
+    public Item() {
     }
 
     public String getId() {
