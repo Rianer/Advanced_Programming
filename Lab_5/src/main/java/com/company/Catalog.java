@@ -46,10 +46,15 @@ public class Catalog extends AddCommand implements SaveCommand, ListCommand, Vie
     @Override
     public void save(String path) {
         try {
+            if(!path.contains(".")){
+                throw  new WrongFileNameException("File extension not provided!");
+            }
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
             mapper.writeValue(Paths.get(path).toFile(), this);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (WrongFileNameException ex){
             ex.printStackTrace();
         }
     }
@@ -64,10 +69,16 @@ public class Catalog extends AddCommand implements SaveCommand, ListCommand, Vie
     @Override
     public void view(String filePath) {
         try {
+            if(!filePath.contains(".")){
+                throw  new WrongFileNameException("File extension not provided!");
+            }
             Desktop desktop = Desktop.getDesktop();
             File myFile = new File(filePath);
             desktop.open(myFile);
         } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (WrongFileNameException ex){
+            ex.printStackTrace();
         }
 
     }
@@ -75,6 +86,9 @@ public class Catalog extends AddCommand implements SaveCommand, ListCommand, Vie
     public void load(String path) {
         ObjectMapper mapper = new ObjectMapper();
         try {
+            if(!path.contains(".")){
+                throw  new WrongFileNameException("File extension not provided!");
+            }
             Catalog auxCatalog = mapper.readValue(new File(path), Catalog.class);
             this.list = auxCatalog.list;
             this.name = auxCatalog.name;
