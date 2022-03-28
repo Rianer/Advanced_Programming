@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Catalog extends AddCommand implements SaveCommand, ListCommand, ViewCommand, LoadCommand, ReportCommand {
-
+    //Class which describes a catalog of Items (Articles and Books)
     public Catalog() {
     }
 
@@ -44,7 +44,7 @@ public class Catalog extends AddCommand implements SaveCommand, ListCommand, Vie
     }
 
     @Override
-    public void save(String path) {
+    public void save(String path) { //Saves the information stored in the catalog in a JSON file at the destination Path
         try {
             if(!path.contains(".")){
                 throw  new WrongFileNameException("File extension not provided!");
@@ -60,14 +60,14 @@ public class Catalog extends AddCommand implements SaveCommand, ListCommand, Vie
     }
 
     @Override
-    public void list() {
+    public void list() { //Lists on screen the information stored in the catalog
         for (Item iterator : list) {
             System.out.println(iterator);
         }
     }
 
     @Override
-    public void view(String filePath) {
+    public void view(String filePath) { //Opens with the default app the file at filePath
         try {
             if(!filePath.contains(".")){
                 throw  new WrongFileNameException("File extension not provided!");
@@ -83,7 +83,7 @@ public class Catalog extends AddCommand implements SaveCommand, ListCommand, Vie
 
     }
 
-    public void load(String path) {
+    public void load(String path) { //Loads information to the catalog from a JSON at the location Path
         ObjectMapper mapper = new ObjectMapper();
         try {
             if(!path.contains(".")){
@@ -98,7 +98,7 @@ public class Catalog extends AddCommand implements SaveCommand, ListCommand, Vie
     }
 
     @Override
-    public void report() {
+    public void report() { //Writes all the information from catalog to an HTML document, and opens it in the browser
         try{
             Configuration cfg = new Configuration(new Version("2.3.23"));
             cfg.setClassForTemplateLoading(Catalog.class, "/");

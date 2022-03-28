@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
-
+//Used for serialization
 @JsonTypeInfo(use = Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "type")
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
         @Type(value = Article.class),
         @Type(value = Book.class),
 })
-public abstract class Item {
+public abstract class Item { //Abstract class to describe the items in the catalog
     public String id;
     public String title;
     public String author;
@@ -29,6 +29,7 @@ public abstract class Item {
     public Item() {
     }
 
+    //Getters and Setters
     public String getId() {
         return id;
     }

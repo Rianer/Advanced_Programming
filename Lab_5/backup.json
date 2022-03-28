@@ -26,10 +26,9 @@
     "id" : "article2",
     "title" : "HTML/CSS",
     "author" : "Bruce Wayne",
-    "location" : "www.gotham.com/article2",
+    "location" : "http://www.gotham.com/article2",
     "type" : "article"
   } ],
-  "catalogName" : "Unknown",
   "itemList" : [ {
     "type" : "Book",
     "id" : "book1",
@@ -56,7 +55,8 @@
     "id" : "article2",
     "title" : "HTML/CSS",
     "author" : "Bruce Wayne",
-    "location" : "www.gotham.com/article2",
+    "location" : "http://www.gotham.com/article2",
     "type" : "article"
-  } ]
+  } ],
+  "catalogName" : "Unknown"
 }

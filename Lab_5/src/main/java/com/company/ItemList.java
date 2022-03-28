@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ItemList {
+public abstract class ItemList { //Abstract class which describes a list of Items
     String name;
     List<Item> list;
 
@@ -15,6 +15,7 @@ public abstract class ItemList {
     public ItemList() {
     }
 
+    //Setters and Getters
     public String getName() {
         return name;
     }
