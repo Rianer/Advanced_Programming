@@ -102,12 +102,13 @@ public class Grid {
         }
 
         int yOffset = 0;
+        int hIndex = 0;
         for (Position stone : stones.get(0)){
-            int hIndex = 0;
+
             yOffset = 0;
             for(int vIndex = 0; vIndex < rows-1; vIndex++){
                 Line newLine = new Line(stone.x, stone.y + yOffset, stone.x, stone.y + yOffset + lineLength);
-                if(verticalConection.get(vIndex).get(hIndex) == 1){
+                if(verticalConection.get(hIndex).get(vIndex) == 1){
                     newLine.setStrokeWidth(3);
                 }
                 else{
