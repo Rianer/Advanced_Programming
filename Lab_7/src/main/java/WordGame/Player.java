@@ -1,3 +1,5 @@
+package WordGame;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,5 +42,22 @@ public class Player {
 
     public void setLetters(List<Tile> letters) {
         this.letters = letters;
+    }
+
+    public void getTiles(Bag bag, int numberOfTiles){
+        bag.provideTiles(numberOfTiles);
+    }
+
+    public boolean submitWord(String word){
+        for(int index = 0; index < word.length(); index++){
+            char letter = word.charAt(index);
+            if(letters.contains(new Tile(letter, 5))){
+                //implement elimination of letter from reserve
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
     }
 }

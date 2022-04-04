@@ -1,3 +1,5 @@
+package WordGame;
+
 import java.util.Map;
 
 public class Tile {

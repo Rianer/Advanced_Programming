@@ -1,6 +1,6 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+package WordGame;
+
+import java.util.*;
 
 public class Bag {
     Map<Tile, Integer> tiles;
@@ -34,5 +34,10 @@ public class Bag {
 
     public void setDefaultQuantity(int defaultQuantity) {
         this.defaultQuantity = defaultQuantity;
+    }
+
+    public List<Tile> provideTiles(int quantity){
+        List<Tile> provided = new ArrayList<>();
+        return provided;
     }
 }
