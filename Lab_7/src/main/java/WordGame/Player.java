@@ -52,7 +52,7 @@ public class Player {
         for(int index = 0; index < word.length(); index++){
             char letter = word.charAt(index);
             if(letters.contains(new Tile(letter, 5))){
-                //implement elimination of letter from reserve
+
             }
             else{
                 return false;
