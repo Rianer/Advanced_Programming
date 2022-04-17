@@ -45,7 +45,7 @@ public class Player {
     }
 
     public void getTiles(Bag bag, int numberOfTiles){
-        bag.provideTiles(numberOfTiles);
+
     }
 
     public boolean submitWord(String word){
