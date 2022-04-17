@@ -1,6 +1,7 @@
 package WordGame;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class Tile {
     char tileName;
@@ -25,5 +26,13 @@ public class Tile {
 
     public void setTilePoints(int tilePoints) {
         this.tilePoints = tilePoints;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tile tile = (Tile) o;
+        return tileName == tile.tileName;
     }
 }

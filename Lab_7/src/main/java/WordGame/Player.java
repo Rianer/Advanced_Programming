@@ -43,21 +43,4 @@ public class Player {
     public void setLetters(List<Tile> letters) {
         this.letters = letters;
     }
-
-    public void getTiles(Bag bag, int numberOfTiles){
-
-    }
-
-    public boolean submitWord(String word){
-        for(int index = 0; index < word.length(); index++){
-            char letter = word.charAt(index);
-            if(letters.contains(new Tile(letter, 5))){
-
-            }
-            else{
-                return false;
-            }
-        }
-        return true;
-    }
 }
