@@ -1,17 +1,14 @@
 package WordGame;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Board {
     private Map<Player, String> boardTiles;
     private Bag bag;
+    private Dictionary dictionary;
     private List<Player> playerList;
     private int currentPlayer = 0;
     private boolean gameEnded = false;
-    public List<Thread> playerThreads = new ArrayList<>();
 
     public Board(Map<Player, String> boardTiles, Bag bag, List<Player> playerList, int currentPlayer) {
         this.boardTiles = boardTiles;
@@ -63,6 +60,14 @@ public class Board {
         this.gameEnded = gameEnded;
     }
 
+    public Dictionary getDictionary() {
+        return dictionary;
+    }
+
+    public void setDictionary(Dictionary dictionary) {
+        this.dictionary = dictionary;
+    }
+
     public void addPlayer(Player newPlayer){
         playerList.add(newPlayer);
         newPlayer.setGameId(playerList.size()-1);
@@ -77,5 +82,14 @@ public class Board {
         this.boardTiles.put(player, tiles);
     }
 
-
+    public void showGameResults(){
+        playerList.sort(new Comparator<Player>() {
+            @Override
+            public int compare(Player p1, Player p2) {
+                return p1.getScore() - p2.getScore();
+            }
+        });
+        System.out.println(playerList);
+        System.out.println("Winner: " + playerList.get(playerList.size()-1).getName());
+    }
 }

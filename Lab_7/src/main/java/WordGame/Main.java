@@ -11,6 +11,11 @@ public class Main {
         Scanner myScanner = new Scanner(System.in);
         Bag myBag = new Bag();
         Board gameBoard = new Board(myBag);
+
+        Dictionary myDictionary = new Dictionary();
+        myDictionary.readDictionary();
+        gameBoard.setDictionary(myDictionary);
+
         int playerNumber = 0;
         System.out.println("How many players?");
         playerNumber = myScanner.nextInt();
@@ -21,15 +26,13 @@ public class Main {
             String playerName = myScanner.nextLine();
             gameBoard.addPlayer(new Player(playerName, gameBoard));
         }
-        gameBoard.playerThreads = new ArrayList<>();
-        for(int iterator = 0; iterator < playerNumber; iterator++){
-            gameBoard.playerThreads.add(new Thread(gameBoard.getPlayerList().get(iterator)));
+
+        while(!gameBoard.isGameEnded()){
+            gameBoard.getPlayerList().get(gameBoard.getCurrentPlayer()).beginGame();
+
         }
-        gameBoard.playerThreads.get(gameBoard.getCurrentPlayer()).start();
 
+        gameBoard.showGameResults();
 
-
-        /*Thread object = new Thread(player1);
-        object.start();*/
     }
 }

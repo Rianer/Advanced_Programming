@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Player implements Runnable{
+public class Player{
     private int gameId;
     private String name;
     private int score;
@@ -122,6 +122,7 @@ public class Player implements Runnable{
     }
 
     public boolean playWord(String word) {
+        if(!board.getDictionary().getWords().contains(word)) return false;
         int score = 0;
         if (word.length() > letters.size()) return false;
         word = word.toUpperCase();
@@ -192,52 +193,46 @@ public class Player implements Runnable{
         }
     }
 
-    @Override
-    public void run() {
-        try {
-            if(gameId != board.getCurrentPlayer()){
-                wait();
-            }
-            String playerMove;
-            Scanner myScanner = new Scanner(System.in);
-            while (!playerLeft && !board.isGameEnded()){
-                System.out.println("Your turn!");
-                restoreTileNumber();
-                playerMove = myScanner.nextLine();
-                int moveId = validateMove(playerMove);
-                while (moveId == -1 || moveId == 2){
-                    if(moveId == -1){
-                        System.out.println("Move not accepted!");
-                    }
-                    else if(moveId == 2){
-                        System.out.println("Make a move!");
-                        System.out.println("Your tiles: " + board.getBoardTiles().get(this));
-                    }
-                    playerMove = myScanner.nextLine();
-                    moveId = validateMove(playerMove);
-                }
-                if(moveId == 1){
-                    playerPassed = true;
-                    board.cyclePlayer();
-                    notifyAll();
-                    wait();
-                }
-                else if(moveId == 0){
-                    System.out.println("Word accepted!");
-                    System.out.println("Current score: " + getScore());
-                    board.cyclePlayer();
-                    notifyAll();
-                    wait();
+    public void beginGame(){
+        String playerMove;
+        Scanner myScanner = new Scanner(System.in);
 
-                }
-                else if(moveId == 3){
-                    notifyAll();
-                    board.setGameEnded(true);
-                }
+        System.out.println("Player " + (gameId + 1) + ":");
+
+        restoreTileNumber();
+        if(!letters.isEmpty() && playerPassed) showTiles();
+        playerMove = myScanner.nextLine();
+        int moveId = validateMove(playerMove);
+        while (moveId == -1 || moveId == 2){
+            if(moveId == -1){
+                System.out.println("Word not accepted!");
             }
+            else if(moveId == 2){
+                System.out.println("Make a move!");
+                System.out.println("Your tiles: " + board.getBoardTiles().get(this));
+            }
+            playerMove = myScanner.nextLine();
+            moveId = validateMove(playerMove);
         }
-        catch (Exception e){
-            e.printStackTrace();
+        if(moveId == 1){
+            playerPassed = true;
+            board.cyclePlayer();
+
         }
+        else if(moveId == 0){
+            System.out.println("Word accepted!");
+            System.out.println("Current score: " + getScore());
+            board.cyclePlayer();
+
+
+        }
+        else if(moveId == 3){
+            board.setGameEnded(true);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return name + " : " + score + " points";
     }
 }
