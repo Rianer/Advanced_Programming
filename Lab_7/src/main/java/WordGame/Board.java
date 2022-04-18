@@ -29,6 +29,10 @@ public class Board {
         return boardTiles;
     }
 
+    public void setBoardTiles(Player player, String tiles){
+        boardTiles.put(player, tiles);
+    }
+
     public List<Player> getPlayerList() {
         return playerList;
     }
@@ -51,6 +55,7 @@ public class Board {
 
     public void addPlayer(Player newPlayer){
         playerList.add(newPlayer);
+        newPlayer.setGameId(playerList.size()-1);
     }
 
     public void setBoardTilesForPlayer(Player player, String tiles){

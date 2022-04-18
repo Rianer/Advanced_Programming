@@ -94,4 +94,23 @@ public class Bag {
         int tileIndex = tilePoints.indexOf(getTileByName(letter));
         return tileQuantity.get(tileIndex);
     }
+
+    public boolean isTileAvailable(int index){
+        if(tileQuantity.get(index) >= 1) return true;
+        return false;
+    }
+
+    public Tile giveTile(int index){
+        int currentQuantity = tileQuantity.get(index);
+        tileQuantity.set(index, currentQuantity-1);
+        return tilePoints.get(index);
+    }
+
+    public int tilesInTotal(){
+        int sum = 0;
+        for(int iterator : tileQuantity){
+            sum += iterator;
+        }
+        return sum;
+    }
 }
