@@ -9,7 +9,9 @@ public class Board {
     private Map<Player, String> boardTiles;
     private Bag bag;
     private List<Player> playerList;
-    private int currentPlayer;
+    private int currentPlayer = 0;
+    private boolean gameEnded = false;
+    public List<Thread> playerThreads = new ArrayList<>();
 
     public Board(Map<Player, String> boardTiles, Bag bag, List<Player> playerList, int currentPlayer) {
         this.boardTiles = boardTiles;
@@ -53,9 +55,22 @@ public class Board {
         this.currentPlayer = currentPlayer;
     }
 
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+
+    public void setGameEnded(boolean gameEnded) {
+        this.gameEnded = gameEnded;
+    }
+
     public void addPlayer(Player newPlayer){
         playerList.add(newPlayer);
         newPlayer.setGameId(playerList.size()-1);
+    }
+
+    public void cyclePlayer(){
+        currentPlayer++;
+        if(currentPlayer == playerList.size()) currentPlayer = 0;
     }
 
     public void setBoardTilesForPlayer(Player player, String tiles){

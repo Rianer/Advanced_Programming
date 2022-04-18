@@ -6,35 +6,35 @@ public class Bag {
     private List<Tile> tilePoints;
     private List<Integer> tileQuantity;
 
-    public Bag(){ //default constructor for current instance of the game
+    public Bag() { //default constructor for current instance of the game
         this.tilePoints = new ArrayList<>();
         this.tileQuantity = new ArrayList<>();
-        tilePoints.add(new Tile('A',1));
-        tilePoints.add(new Tile('B',3));
-        tilePoints.add(new Tile('C',3));
-        tilePoints.add(new Tile('D',2));
-        tilePoints.add(new Tile('E',1));
-        tilePoints.add(new Tile('F',4));
-        tilePoints.add(new Tile('G',2));
-        tilePoints.add(new Tile('H',4));
-        tilePoints.add(new Tile('I',1));
-        tilePoints.add(new Tile('J',8));
-        tilePoints.add(new Tile('K',5));
-        tilePoints.add(new Tile('L',1));
-        tilePoints.add(new Tile('M',3));
-        tilePoints.add(new Tile('N',1));
-        tilePoints.add(new Tile('O',1));
-        tilePoints.add(new Tile('P',3));
-        tilePoints.add(new Tile('Q',10));
-        tilePoints.add(new Tile('R',1));
-        tilePoints.add(new Tile('S',1));
-        tilePoints.add(new Tile('T',1));
-        tilePoints.add(new Tile('U',1));
-        tilePoints.add(new Tile('V',4));
-        tilePoints.add(new Tile('X',8));
-        tilePoints.add(new Tile('Y',4));
-        tilePoints.add(new Tile('W',4));
-        tilePoints.add(new Tile('Z',10));
+        tilePoints.add(new Tile('A', 1));
+        tilePoints.add(new Tile('B', 3));
+        tilePoints.add(new Tile('C', 3));
+        tilePoints.add(new Tile('D', 2));
+        tilePoints.add(new Tile('E', 1));
+        tilePoints.add(new Tile('F', 4));
+        tilePoints.add(new Tile('G', 2));
+        tilePoints.add(new Tile('H', 4));
+        tilePoints.add(new Tile('I', 1));
+        tilePoints.add(new Tile('J', 8));
+        tilePoints.add(new Tile('K', 5));
+        tilePoints.add(new Tile('L', 1));
+        tilePoints.add(new Tile('M', 3));
+        tilePoints.add(new Tile('N', 1));
+        tilePoints.add(new Tile('O', 1));
+        tilePoints.add(new Tile('P', 3));
+        tilePoints.add(new Tile('Q', 10));
+        tilePoints.add(new Tile('R', 1));
+        tilePoints.add(new Tile('S', 1));
+        tilePoints.add(new Tile('T', 1));
+        tilePoints.add(new Tile('U', 1));
+        tilePoints.add(new Tile('V', 4));
+        tilePoints.add(new Tile('X', 8));
+        tilePoints.add(new Tile('Y', 4));
+        tilePoints.add(new Tile('W', 4));
+        tilePoints.add(new Tile('Z', 10));
 
         tileQuantity.add(9);
         tileQuantity.add(2);
@@ -80,37 +80,56 @@ public class Bag {
         this.tileQuantity = tileQuantity;
     }
 
-    public Tile getTileByName(char letter){
-        return tilePoints.stream().filter(t -> t.getTileName()==letter).findFirst().orElse(null);
+    public Tile getTileByName(char letter) {
+        return tilePoints.stream().filter(t -> t.getTileName() == letter).findFirst().orElse(null);
     }
 
-    public void decreaseNumberOfTiles(char letter, int quantity){
+    public void decreaseNumberOfTiles(char letter, int quantity) {
         int tileIndex = tilePoints.indexOf(getTileByName(letter));
         int currentQuantity = tileQuantity.get(tileIndex);
         tileQuantity.set(tileIndex, currentQuantity - quantity);
-    };
+    }
 
-    public int getNumberOfTiles(char letter){
+    ;
+
+    public int getNumberOfTiles(char letter) {
         int tileIndex = tilePoints.indexOf(getTileByName(letter));
         return tileQuantity.get(tileIndex);
     }
 
-    public boolean isTileAvailable(int index){
-        if(tileQuantity.get(index) >= 1) return true;
+    public boolean isTileAvailable(int index) {
+        if (tileQuantity.get(index) >= 1) return true;
         return false;
     }
 
-    public Tile giveTile(int index){
+    public Tile giveTile(int index) {
         int currentQuantity = tileQuantity.get(index);
-        tileQuantity.set(index, currentQuantity-1);
+        tileQuantity.set(index, currentQuantity - 1);
         return tilePoints.get(index);
     }
 
-    public int tilesInTotal(){
+    public int tilesInTotal() {
         int sum = 0;
-        for(int iterator : tileQuantity){
+        for (int iterator : tileQuantity) {
             sum += iterator;
         }
         return sum;
+    }
+
+    public void placeTilesBack(String tiles) {
+        int tileIndex, currentQuantity;
+        for (int index = 0; index < tiles.length(); index++) {
+            tileIndex = tilePoints.indexOf(getTileByName(tiles.charAt(index)));
+            currentQuantity = tileQuantity.get(tileIndex);
+            tileQuantity.set(tileIndex, currentQuantity + 1);
+        }
+    }
+
+    public void showTilesStatus(){
+        int index = 0;
+        for(Tile iterator : tilePoints){
+            System.out.println(iterator.getTileName() + ": " + tileQuantity.get(index) + " remaining, value: " + iterator.getTilePoints());
+            index++;
+        }
     }
 }

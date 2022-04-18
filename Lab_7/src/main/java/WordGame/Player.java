@@ -2,17 +2,17 @@ package WordGame;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
+import java.util.Scanner;
 
-public class Player {
+public class Player implements Runnable{
     private int gameId;
     private String name;
     private int score;
     private List<Tile> letters;
     private Board board;
-    public boolean playerPassedOnce = false;
-    public boolean playerPassedTwice = false;
+    public boolean playerPassed = false;
+    public boolean playerLeft = false;
 
     public Player(String name, int score, List<Tile> letters) {
         this.name = name;
@@ -122,6 +122,7 @@ public class Player {
     }
 
     public boolean playWord(String word) {
+        int score = 0;
         if (word.length() > letters.size()) return false;
         word = word.toUpperCase();
         int lastIndex = 0;
@@ -129,38 +130,114 @@ public class Player {
         for (int index = 0; index < word.length(); index++) {
             lastIndex = checkLetterInList(word.charAt(index), resultTileList);
             if (lastIndex == -1) return false;
+            score += resultTileList.get(lastIndex).getTilePoints();
             resultTileList.remove(lastIndex);
         }
+        this.score += score;
         letters = resultTileList;
         return true;
     }
 
-    public String tilesToString(){
+    public String tilesToString() {
         String result = new String();
-        for(Tile iterator : letters){
+        for (Tile iterator : letters) {
             result += iterator.getTileName();
             result += ' ';
         }
         return result;
     }
 
-    public void restoreTileNumber(){
+    public void restoreTileNumber() {
         int requiredTiles = 7 - letters.size();
         int totalTiles = board.getBag().tilesInTotal();
-        if( totalTiles >= requiredTiles){
+        if (requiredTiles == 0) {
+            ;
+        } else if (totalTiles >= requiredTiles) {
             extractTiles(requiredTiles);
+        } else {
+            extractTiles(totalTiles);
+        }
+        board.setBoardTiles(this, tilesToString());
+    }
+
+    public int validateMove(String move) {
+        move = move.replaceAll(" ", "");
+        move = move.toUpperCase();
+        System.out.println("You played " + move);
+        if (move.compareTo(":PASS") == 0) {
+            //board.getBag().placeTilesBack(tilesToString());
+            letters.clear();
+            restoreTileNumber();
+            return 1;
+        } else if (move.compareTo(":BAGTILES") == 0) {
+            board.getBag().showTilesStatus();
+            return 2;
+        } else if (move.compareTo(":LEAVE") == 0) {
+            playerLeft = true;
+            return 3;
+        } else {
+            if (playWord(move)) {
+                playerPassed = false;
+                return 0;
+            }
+            return -1;
+        }
+    }
+    private Player nextPlayer(){
+        if(gameId == board.getPlayerList().size()-1){
+            return board.getPlayerList().get(0);
         }
         else{
-            extractTiles(totalTiles);
+            return board.getPlayerList().get(gameId+1);
         }
     }
 
-    public int validateMove(String move){
-        move.replaceAll("\\s","");
-        move.toUpperCase();
-        if(move == ":PASS"){
-            return 1;
+    @Override
+    public void run() {
+        try {
+            if(gameId != board.getCurrentPlayer()){
+                wait();
+            }
+            String playerMove;
+            Scanner myScanner = new Scanner(System.in);
+            while (!playerLeft && !board.isGameEnded()){
+                System.out.println("Your turn!");
+                restoreTileNumber();
+                playerMove = myScanner.nextLine();
+                int moveId = validateMove(playerMove);
+                while (moveId == -1 || moveId == 2){
+                    if(moveId == -1){
+                        System.out.println("Move not accepted!");
+                    }
+                    else if(moveId == 2){
+                        System.out.println("Make a move!");
+                        System.out.println("Your tiles: " + board.getBoardTiles().get(this));
+                    }
+                    playerMove = myScanner.nextLine();
+                    moveId = validateMove(playerMove);
+                }
+                if(moveId == 1){
+                    playerPassed = true;
+                    board.cyclePlayer();
+                    notifyAll();
+                    wait();
+                }
+                else if(moveId == 0){
+                    System.out.println("Word accepted!");
+                    System.out.println("Current score: " + getScore());
+                    board.cyclePlayer();
+                    notifyAll();
+                    wait();
+
+                }
+                else if(moveId == 3){
+                    notifyAll();
+                    board.setGameEnded(true);
+                }
+            }
         }
-        return 0;
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

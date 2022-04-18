@@ -1,35 +1,35 @@
 package WordGame;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
+
 public class Main {
-    public static void main(String args[]){
+    public static void main(String args[]) {
         Scanner myScanner = new Scanner(System.in);
         Bag myBag = new Bag();
         Board gameBoard = new Board(myBag);
-        Player player1 = new Player("Adrian", gameBoard);
-        gameBoard.addPlayer(player1);
-        System.out.println("Player id: " + player1.getGameId());
-        String playerMove;
-
-        while(!player1.playerPassedTwice){
-            System.out.println("New turn!");
-            player1.restoreTileNumber();
-            playerMove = myScanner.nextLine();
-            if(player1.validateMove(playerMove) == 1){
-                if(player1.playerPassedOnce){
-                    player1.playerPassedTwice = true;
-                }
-                else{
-                    player1.playerPassedOnce = true;
-                }
-            }
-            else{
-                if(player1.playWord(playerMove)){
-
-                }
-            }
+        int playerNumber = 0;
+        System.out.println("How many players?");
+        playerNumber = myScanner.nextInt();
+        myScanner = new Scanner(System.in);
+        for (int iterator = 1; iterator <= playerNumber; iterator++) {
+            System.out.print("Player " + iterator);
+            System.out.println(" Give player name: ");
+            String playerName = myScanner.nextLine();
+            gameBoard.addPlayer(new Player(playerName, gameBoard));
         }
+        gameBoard.playerThreads = new ArrayList<>();
+        for(int iterator = 0; iterator < playerNumber; iterator++){
+            gameBoard.playerThreads.add(new Thread(gameBoard.getPlayerList().get(iterator)));
+        }
+        gameBoard.playerThreads.get(gameBoard.getCurrentPlayer()).start();
 
+
+
+        /*Thread object = new Thread(player1);
+        object.start();*/
     }
 }
