@@ -43,6 +43,8 @@ public class Country {
 
     @Override
     public String toString() {
-        return super.toString();
+        return getName() + " " +
+                getContinent() + " " +
+                 getCode() + "\n";
     }
 }

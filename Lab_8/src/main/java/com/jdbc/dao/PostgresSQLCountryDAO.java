@@ -65,7 +65,7 @@ public class PostgresSQLCountryDAO implements CountryDAO{
     @Override
     public int addCountry(Country country) throws SQLException {
         String sql = "INSERT INTO "
-                + "public.\"Countries\"(id, name, continent, code) "
+                + "public.\"countries\"(id, name, continent, code) "
                 + "VALUES(?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, country.getId());

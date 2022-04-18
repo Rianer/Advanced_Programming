@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String args[]) throws SQLException {
         Country country = new Country();
-        country.setId(1);
+        country.setId(2);
         country.setName("Germany");
         country.setContinent("Europe");
         country.setCode("+49");
@@ -17,6 +17,8 @@ public class Main {
 
         countryDAO.addCountry(country);
 
-        Country newCountry = countryDAO.getCountry(1);
+        Country newCountry = countryDAO.getCountry(2);
+
+        System.out.println(newCountry);
     }
 }
