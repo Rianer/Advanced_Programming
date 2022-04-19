@@ -39,7 +39,7 @@ public class PostgresSQLCountryDAO implements CountryDAO{
 
     @Override
     public Country getCountry(String name) throws SQLException {
-        String sql = "select * from Countries where id= ?";
+        String sql = "select * from Countries where name= ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, name);
 
