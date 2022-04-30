@@ -7,7 +7,8 @@ public class Continent {
     private String name;
 
     public Continent(){
-
+        this.id = -1;
+        this.name = "Unknown";
     }
 
     public int getId() {

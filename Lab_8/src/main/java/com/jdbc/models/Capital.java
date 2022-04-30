@@ -2,20 +2,18 @@ package com.jdbc.models;
 
 public class Capital {
     private int id;
-    private String country;
-    private String capitalName;
+    private String name;
     private String latitude;
     private String longitude;
-    private String countryCode;
-    private String continentName;
+    private Country country;
+    private Continent continent;
 
     public Capital(){
-        this.country = "Unknown";
-        this.capitalName = "Unknown";
+        this.country = null;
+        this.name = "Unknown";
         this.latitude = "Unknown";
         this.longitude = "Unknown";
-        this.countryCode = "Unknown";
-        this.continentName = "Unknown";
+        this.continent = null;
     }
 
     public int getId() {
@@ -26,20 +24,12 @@ public class Capital {
         this.id = id;
     }
 
-    public String getCountry() {
-        return country;
+    public String getName() {
+        return name;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCapitalName() {
-        return capitalName;
-    }
-
-    public void setCapitalName(String capitalName) {
-        this.capitalName = capitalName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLatitude() {
@@ -58,19 +48,19 @@ public class Capital {
         this.longitude = longitude;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
-    public String getContinentName() {
-        return continentName;
+    public Continent getContinent() {
+        return continent;
     }
 
-    public void setContinentName(String continentName) {
-        this.continentName = continentName;
+    public void setContinent(Continent continent) {
+        this.continent = continent;
     }
 }

@@ -1,5 +1,6 @@
 package com.jdbc.dao;
 
+import com.jdbc.models.Capital;
 import com.jdbc.models.Continent;
 import com.jdbc.models.Country;
 import com.jdbc.util.DatabaseConnection;
@@ -9,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PostgresSQLDAO implements CountryDAO, ContinentDAO{
+public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
 
     private final Connection con
             = DatabaseConnection.getConnection();
@@ -25,6 +26,27 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO{
             result++;
         }
         return result;
+    }
+
+    private boolean isDataPresent(String table, String column, String value) throws SQLException{
+        boolean found = false;
+        String querry = "SELECT " + column + " FROM " + table + " WHERE " + column + "=" + value;
+        PreparedStatement ps = con.prepareStatement(querry);
+
+        ResultSet rs = ps.executeQuery();
+        found = rs.next();
+        return found;
+    }
+
+    private String getCountryCode(String country) throws SQLException{
+        String querry = "SELECT code FROM countries WHERE name = " + country;
+        PreparedStatement ps = con.prepareStatement(querry);
+
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            return rs.getString("code");
+        }
+        return "NULL";
     }
 
     @Override
@@ -126,7 +148,7 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO{
 
     @Override
     public Continent getContinent(String name) throws SQLException {
-        String sql = "select * from Countries where name= ?";
+        String sql = "select * from countries where name= ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, name);
 
@@ -157,5 +179,50 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO{
         ps.setString(2, continent.getName());
 
         return ps.executeUpdate();
+    }
+
+    @Override
+    public int addCapital(Capital capital) throws SQLException {
+
+        String sql = "INSERT INTO public.capitals(id,name,country,longitude,latitude,code,continent) VALUES(?, ?)";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, generateId("capitals"));
+        ps.setString(2,capital.getName());
+        ps.setString(3,capital.getCountry().getName());
+        ps.setString(4,capital.getLongitude());
+        ps.setString(5,capital.getLatitude());
+        ps.setString(6, capital.getCountry().getCode());
+        ps.setString(7, capital.getContinent().getName());
+
+        return ps.executeUpdate();
+    }
+
+    @Override
+    public Capital getCapital(String capitalName) throws SQLException{
+        String sql = "select * from capitals where name= ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, capitalName);
+
+        Capital capital = new Capital();
+        ResultSet rs = ps.executeQuery();
+        boolean check = false;
+
+        while (rs.next()) {
+            check = true;
+            capital.setName(rs.getString("name"));
+            capital.setId(rs.getInt("id"));
+
+        }
+
+        if (check) {
+            return capital;
+        }
+        else
+            return null;
+    }
+
+    @Override
+    public Capital getCapital(int id) throws SQLException{
+        return null;
     }
 }
