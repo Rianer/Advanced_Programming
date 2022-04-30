@@ -7,6 +7,10 @@ public class DatabaseConnection {
 
     private static Connection con = null;
 
+    public static Connection getConnection() {
+        return con;
+    }
+
     static {
 
         String url = "jdbc:postgresql://localhost:5432/AP_DB";
@@ -24,10 +28,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static Connection getConnection()
-    {
-        return con;
-    }
+
 
 
 }

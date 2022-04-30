@@ -1,12 +1,15 @@
 package com.jdbc.models;
 
 public class Country {
-    int id;
-    String name;
-    String continent;
-    String code;
+    private int id;
+    private String name;
+    private String continent;
+    private String code;
 
     public Country() {
+        this.name = "Unknown";
+        this.continent = "Unknown";
+        this.code = "--";
     }
 
     public int getId() {

@@ -1,25 +1,22 @@
 package com.jdbc.main;
 
-import com.jdbc.dao.PostgresSQLCountryDAO;
+import com.jdbc.dao.PostgresSQLDAO;
+import com.jdbc.models.Continent;
 import com.jdbc.models.Country;
 
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String args[]) throws SQLException {
-        int id = 3;
-        Country country = new Country();
-        country.setId(id);
-        country.setName("Germany");
-        country.setContinent("Europe");
-        country.setCode("+49");
 
-        PostgresSQLCountryDAO countryDAO = new PostgresSQLCountryDAO();
+        PostgresSQLDAO sqlDAO = new PostgresSQLDAO();
 
-        countryDAO.addCountry(country);
+        Country newCountry = new Country();
+        newCountry.setName("Fake2");
+        newCountry.setCode("+373");
+        newCountry.setContinent("Fake");
 
-        Country newCountry = countryDAO.getCountry(id);
+        sqlDAO.addCountry(newCountry);
 
-        System.out.println(newCountry);
     }
 }
