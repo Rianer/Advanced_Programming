@@ -5,15 +5,13 @@ public class Capital {
     private String name;
     private String latitude;
     private String longitude;
-    private Country country;
-    private Continent continent;
+    private String country;
 
     public Capital(){
-        this.country = null;
+        this.country = "Unknown";
         this.name = "Unknown";
         this.latitude = "Unknown";
         this.longitude = "Unknown";
-        this.continent = null;
     }
 
     public int getId() {
@@ -48,19 +46,12 @@ public class Capital {
         this.longitude = longitude;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
-    public Continent getContinent() {
-        return continent;
-    }
-
-    public void setContinent(Continent continent) {
-        this.continent = continent;
-    }
 }

@@ -28,10 +28,11 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
         return result;
     }
 
-    private boolean isDataPresent(String table, String column, String value) throws SQLException{
+    public boolean isDataPresent(String table, String column, String value) throws SQLException{
         boolean found = false;
-        String querry = "SELECT " + column + " FROM " + table + " WHERE " + column + "=" + value;
+        String querry = "SELECT " + column + " FROM " + table + " WHERE " + column + "=?";
         PreparedStatement ps = con.prepareStatement(querry);
+        ps.setString(1, value);
 
         ResultSet rs = ps.executeQuery();
         found = rs.next();
@@ -41,6 +42,7 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
     private String getCountryCode(String country) throws SQLException{
         String querry = "SELECT code FROM countries WHERE name = " + country;
         PreparedStatement ps = con.prepareStatement(querry);
+
 
         ResultSet rs = ps.executeQuery();
         if(rs.next()){
@@ -106,7 +108,7 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
         ps.setString(1, country.getName());
 
         ResultSet rs = ps.executeQuery();
-        if(!rs.next() && !country.getContinent().equals("Unknown")) {
+        if(!rs.next() ) { //&& !country.getContinent().equals("Unknown")
             System.out.println("Error: No such continent in the database!\nContinent provided: " + country.getContinent() +"\nCountry not added!");
             return -1;
         }
@@ -148,7 +150,7 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
 
     @Override
     public Continent getContinent(String name) throws SQLException {
-        String sql = "select * from countries where name= ?";
+        String sql = "select * from continents where name= ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, name);
 
@@ -184,15 +186,13 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
     @Override
     public int addCapital(Capital capital) throws SQLException {
 
-        String sql = "INSERT INTO public.capitals(id,name,country,longitude,latitude,code,continent) VALUES(?, ?)";
+        String sql = "INSERT INTO public.capitals(id,name,country,longitude,latitude) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, generateId("capitals"));
         ps.setString(2,capital.getName());
-        ps.setString(3,capital.getCountry().getName());
+        ps.setString(3,capital.getCountry());
         ps.setString(4,capital.getLongitude());
         ps.setString(5,capital.getLatitude());
-        ps.setString(6, capital.getCountry().getCode());
-        ps.setString(7, capital.getContinent().getName());
 
         return ps.executeUpdate();
     }
@@ -209,9 +209,11 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
 
         while (rs.next()) {
             check = true;
-            capital.setName(rs.getString("name"));
             capital.setId(rs.getInt("id"));
-
+            capital.setName(rs.getString("name"));
+            capital.setCountry(rs.getString("country"));
+            capital.setLatitude(rs.getString("latitude"));
+            capital.setLongitude(rs.getString("longitude"));
         }
 
         if (check) {
@@ -223,6 +225,27 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
 
     @Override
     public Capital getCapital(int id) throws SQLException{
-        return null;
+        String sql = "select * from capitals where id= ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+
+        Capital capital = new Capital();
+        ResultSet rs = ps.executeQuery();
+        boolean check = false;
+
+        while (rs.next()) {
+            check = true;
+            capital.setId(rs.getInt("id"));
+            capital.setName(rs.getString("name"));
+            capital.setCountry(rs.getString("country"));
+            capital.setLatitude(rs.getString("latitude"));
+            capital.setLongitude(rs.getString("longitude"));
+        }
+
+        if (check) {
+            return capital;
+        }
+        else
+            return null;
     }
 }
