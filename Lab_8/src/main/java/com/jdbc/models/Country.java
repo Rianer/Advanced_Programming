@@ -46,8 +46,11 @@ public class Country {
 
     @Override
     public String toString() {
-        return getName() + " " +
-                getContinent() + " " +
-                 getCode() + "\n";
+        return "Country{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", continent='" + continent + '\'' +
+                ", code='" + code + '\'' +
+                '}';
     }
 }

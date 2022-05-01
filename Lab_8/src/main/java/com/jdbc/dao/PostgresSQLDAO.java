@@ -103,7 +103,7 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
 
     @Override
     public int addCountry(Country country) throws SQLException {
-        String querry = "SELECT id FROM continents WHERE name=?";
+        /*String querry = "SELECT id FROM continents WHERE name=?";
         PreparedStatement ps = con.prepareStatement(querry);
         ps.setString(1, country.getName());
 
@@ -111,12 +111,15 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
         if(!rs.next() ) { //&& !country.getContinent().equals("Unknown")
             System.out.println("Error: No such continent in the database!\nContinent provided: " + country.getContinent() +"\nCountry not added!");
             return -1;
+        }*/
+        if(!isDataPresent("continents", "name", country.getContinent())){
+            System.out.println("Error: No such continent in the database!\nContinent provided: " + country.getContinent() +"\nCountry not added!");
+            return -1;
         }
-
         String sql = "INSERT INTO "
                 + "public.\"countries\"(id, name, continent, code) "
                 + "VALUES(?, ?, ?, ?)";
-        ps = con.prepareStatement(sql);
+        PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, generateId("countries"));
         ps.setString(2, country.getName());
         ps.setString(3, country.getContinent());

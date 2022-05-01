@@ -13,17 +13,6 @@ public class Main {
 
         PostgresSQLDAO sqlDAO = new PostgresSQLDAO();
 
-
-        Continent continent = new Continent();
-        continent.setName("Europe");
-
-        Capital capital = new Capital();
-        capital.setLongitude("long");
-        capital.setLatitude("lat");
-        capital.setCountry("Fake");
-        capital.setName("FakeName");
-        //sqlDAO.addCapital(capital);
-        //sqlDAO.addContinent(continent);
         CSVReader reader = new CSVReader();
         reader.readCSV("src/main/resources/concap.csv");
 

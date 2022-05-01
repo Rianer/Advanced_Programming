@@ -54,4 +54,14 @@ public class Capital {
         this.country = country;
     }
 
+    @Override
+    public String toString() {
+        return "Capital{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }
