@@ -1,7 +1,7 @@
 package com.jdbc.util;
 
 import com.jdbc.dao.PostgresSQLDAO;
-import com.jdbc.models.Capital;
+import com.jdbc.models.City;
 import java.sql.SQLException;
 
 
@@ -39,17 +39,17 @@ public class MeasureTool{
     public double calculateDistance(String firstCity, String secondCity) throws SQLException {
         PostgresSQLDAO dao = new PostgresSQLDAO();
 
-        if(!dao.isDataPresent("capitals", "name", firstCity)){
+        if(!dao.isDataPresent("cities", "name", firstCity)){
             System.out.println("No city found: " + firstCity + "!");
             return -1;
         }
-        if(!dao.isDataPresent("capitals", "name", secondCity)){
+        if(!dao.isDataPresent("cities", "name", secondCity)){
             System.out.println("No city found: " + secondCity + "!");
             return -2;
         }
 
-        Capital first = dao.getCapital(firstCity);
-        Capital second = dao.getCapital(secondCity);
+        City first = dao.getCity(firstCity);
+        City second = dao.getCity(secondCity);
 
         Coordinates origin = new Coordinates(first.getLatitude(), first.getLongitude());
         Coordinates destination = new Coordinates(second.getLatitude(), second.getLongitude());

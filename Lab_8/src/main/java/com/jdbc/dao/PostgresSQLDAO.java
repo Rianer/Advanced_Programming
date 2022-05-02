@@ -1,6 +1,6 @@
 package com.jdbc.dao;
 
-import com.jdbc.models.Capital;
+import com.jdbc.models.City;
 import com.jdbc.models.Continent;
 import com.jdbc.models.Country;
 import com.jdbc.util.DatabaseConnection;
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
+public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CityDAO {
 
     private final Connection con
             = DatabaseConnection.getConnection();
@@ -187,66 +187,69 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CapitalDAO{
     }
 
     @Override
-    public int addCapital(Capital capital) throws SQLException {
+    public int addCity(City city) throws SQLException {
 
-        String sql = "INSERT INTO public.capitals(id,name,country,longitude,latitude) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO public.cities(id,name,country,longitude,latitude, capital) VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, generateId("capitals"));
-        ps.setString(2,capital.getName());
-        ps.setString(3,capital.getCountry());
-        ps.setString(4,capital.getLongitude());
-        ps.setString(5,capital.getLatitude());
+        ps.setInt(1, generateId("cities"));
+        ps.setString(2, city.getName());
+        ps.setString(3, city.getCountry());
+        ps.setString(4, city.getLongitude());
+        ps.setString(5, city.getLatitude());
+        ps.setBoolean(6, city.getCapital());
 
         return ps.executeUpdate();
     }
 
     @Override
-    public Capital getCapital(String capitalName) throws SQLException{
-        String sql = "select * from capitals where name= ?";
+    public City getCity(String cityName) throws SQLException{
+        String sql = "select * from cities where name= ?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, capitalName);
+        ps.setString(1, cityName);
 
-        Capital capital = new Capital();
+        City city = new City();
         ResultSet rs = ps.executeQuery();
         boolean check = false;
 
         while (rs.next()) {
             check = true;
-            capital.setId(rs.getInt("id"));
-            capital.setName(rs.getString("name"));
-            capital.setCountry(rs.getString("country"));
-            capital.setLatitude(rs.getString("latitude"));
-            capital.setLongitude(rs.getString("longitude"));
+            city.setId(rs.getInt("id"));
+            city.setName(rs.getString("name"));
+            city.setCountry(rs.getString("country"));
+            city.setLatitude(rs.getString("latitude"));
+            city.setLongitude(rs.getString("longitude"));
+            city.setCapital(rs.getBoolean("capital"));
         }
 
         if (check) {
-            return capital;
+            return city;
         }
         else
             return null;
     }
 
     @Override
-    public Capital getCapital(int id) throws SQLException{
-        String sql = "select * from capitals where id= ?";
+    public City getCity(int id) throws SQLException{
+        String sql = "select * from cities where id= ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, id);
 
-        Capital capital = new Capital();
+        City city = new City();
         ResultSet rs = ps.executeQuery();
         boolean check = false;
 
         while (rs.next()) {
             check = true;
-            capital.setId(rs.getInt("id"));
-            capital.setName(rs.getString("name"));
-            capital.setCountry(rs.getString("country"));
-            capital.setLatitude(rs.getString("latitude"));
-            capital.setLongitude(rs.getString("longitude"));
+            city.setId(rs.getInt("id"));
+            city.setName(rs.getString("name"));
+            city.setCountry(rs.getString("country"));
+            city.setLatitude(rs.getString("latitude"));
+            city.setLongitude(rs.getString("longitude"));
+            city.setCapital(rs.getBoolean("capital"));
         }
 
         if (check) {
-            return capital;
+            return city;
         }
         else
             return null;

@@ -1,9 +1,6 @@
 package com.jdbc.main;
 
 import com.jdbc.dao.PostgresSQLDAO;
-import com.jdbc.models.Capital;
-import com.jdbc.models.Continent;
-import com.jdbc.models.Country;
 import com.jdbc.util.CSVReader;
 import com.jdbc.util.MeasureTool;
 

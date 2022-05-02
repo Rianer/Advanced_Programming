@@ -1,7 +1,7 @@
 package com.jdbc.util;
 
 import com.jdbc.dao.PostgresSQLDAO;
-import com.jdbc.models.Capital;
+import com.jdbc.models.City;
 import com.jdbc.models.Continent;
 import com.jdbc.models.Country;
 
@@ -52,11 +52,12 @@ public class CSVReader {
             country.setCode(parser.get(4));
             //System.out.println(country);
 
-            Capital capital = new Capital();
-            capital.setName(parser.get(1));
-            capital.setCountry(country.getName());
-            capital.setLatitude(parser.get(2));
-            capital.setLongitude(parser.get(3));
+            City city = new City();
+            city.setName(parser.get(1));
+            city.setCountry(country.getName());
+            city.setLatitude(parser.get(2));
+            city.setLongitude(parser.get(3));
+            city.setCapital(true);
             //System.out.println(capital);
 
             if(!dao.isDataPresent("continents","name",continent.getName())){
@@ -65,8 +66,8 @@ public class CSVReader {
             if(!dao.isDataPresent("countries", "name", country.getName())){
                 dao.addCountry(country);
             }
-            if(!dao.isDataPresent("capitals","name",capital.getName())){
-                dao.addCapital(capital);
+            if(!dao.isDataPresent("cities","name", city.getName())){
+                dao.addCity(city);
             }
         }
     }

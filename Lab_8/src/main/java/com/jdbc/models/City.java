@@ -1,13 +1,14 @@
 package com.jdbc.models;
 
-public class Capital {
+public class City {
     private int id;
     private String name;
     private String latitude;
     private String longitude;
     private String country;
+    private Boolean isCapital;
 
-    public Capital(){
+    public City(){
         this.country = "Unknown";
         this.name = "Unknown";
         this.latitude = "Unknown";
@@ -52,6 +53,14 @@ public class Capital {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Boolean getCapital() {
+        return isCapital;
+    }
+
+    public void setCapital(Boolean capital) {
+        isCapital = capital;
     }
 
     @Override
