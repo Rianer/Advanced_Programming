@@ -2,6 +2,7 @@ package com.jdbc.main;
 
 import com.jdbc.dao.PostgresSQLDAO;
 import com.jdbc.models.City;
+import com.jdbc.models.Continent;
 import com.jdbc.models.Country;
 import com.jdbc.util.CSVReader;
 import com.jdbc.util.MeasureTool;
@@ -13,21 +14,30 @@ public class Main {
 
         //instance of DAO
         PostgresSQLDAO sqlDAO = new PostgresSQLDAO();
+
+        sqlDAO.clearTable("cities");
+        sqlDAO.clearTable("continents");
+        sqlDAO.clearTable("countries");
+
+        //Dummy continent
+        Continent fakeContinent = new Continent();
+        fakeContinent.setName("FakeContinent");
         //Dummy country
         Country fakeCountry = new Country();
         fakeCountry.setName("FakeCountry");
-        fakeCountry.setContinent("Africa");
+        fakeCountry.setContinent("FakeContinent");
         fakeCountry.setCode("FC");
         //Dummy city
         City fakeCity = new City();
-        fakeCity.setName("Night City");
+        fakeCity.setName("Fake City");
         fakeCity.setCountry("FakeCountry");
         fakeCity.setLongitude("20.662527");
         fakeCity.setLatitude("8.264567");
         fakeCity.setCapital(true);
 
-        /*sqlDAO.addCountry(fakeCountry);
-        sqlDAO.addCity(fakeCity);*/
+        sqlDAO.addContinent(fakeContinent);
+        sqlDAO.addCountry(fakeCountry);
+        sqlDAO.addCity(fakeCity);
 
         //Accessing data from CSV file
         CSVReader reader = new CSVReader();

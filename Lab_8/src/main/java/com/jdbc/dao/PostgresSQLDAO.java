@@ -40,6 +40,12 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CityDAO {
         return found;
     }
 
+    public void clearTable(String tableName) throws SQLException {
+        String sql = "DELETE FROM " + tableName;
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.executeUpdate();
+    }
+
     private String getCountryCode(String country) throws SQLException{
         String querry = "SELECT code FROM countries WHERE name = " + country;
         PreparedStatement ps = con.prepareStatement(querry);
@@ -104,15 +110,6 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CityDAO {
 
     @Override
     public int addCountry(Country country) throws SQLException {
-        /*String querry = "SELECT id FROM continents WHERE name=?";
-        PreparedStatement ps = con.prepareStatement(querry);
-        ps.setString(1, country.getName());
-
-        ResultSet rs = ps.executeQuery();
-        if(!rs.next() ) { //&& !country.getContinent().equals("Unknown")
-            System.out.println("Error: No such continent in the database!\nContinent provided: " + country.getContinent() +"\nCountry not added!");
-            return -1;
-        }*/
         if(!isDataPresent("continents", "name", country.getContinent())){
             System.out.println("Error: No such continent in the database!\nContinent provided: " + country.getContinent() +"\nCountry not added!");
             return -1;
@@ -189,6 +186,11 @@ public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CityDAO {
 
     @Override
     public int addCity(City city) throws SQLException {
+
+        if(!isDataPresent("countries", "name", city.getCountry())){
+            System.out.println("Error: No such country in the database!\nCountry provided: " + city.getCountry() +"\nCity not added!");
+            return -1;
+        }
 
         String sql = "INSERT INTO public.cities(id,name,country,longitude,latitude, capital) VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
