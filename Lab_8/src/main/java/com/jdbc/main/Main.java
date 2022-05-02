@@ -5,6 +5,7 @@ import com.jdbc.models.Capital;
 import com.jdbc.models.Continent;
 import com.jdbc.models.Country;
 import com.jdbc.util.CSVReader;
+import com.jdbc.util.MeasureTool;
 
 import java.sql.SQLException;
 
@@ -15,6 +16,9 @@ public class Main {
 
         CSVReader reader = new CSVReader();
         reader.readCSV("src/main/resources/concap.csv");
+
+        MeasureTool mt = new MeasureTool();
+        System.out.println(mt.calculateDistance("Paris", "Lisbon"));
 
     }
 }
