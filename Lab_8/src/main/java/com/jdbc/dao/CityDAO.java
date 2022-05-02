@@ -5,6 +5,8 @@ import com.jdbc.models.City;
 import java.sql.SQLException;
 
 public interface CityDAO {
+    //DAO for cities
+
     public int addCity(City city) throws SQLException;
 
     public City getCity(String capitalName) throws SQLException;

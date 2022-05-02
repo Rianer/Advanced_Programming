@@ -5,6 +5,7 @@ import com.jdbc.models.Country;
 import java.sql.SQLException;
 
 public interface CountryDAO {
+    //DAO for countries
 
     public Country getCountry(int id) throws SQLException;
 

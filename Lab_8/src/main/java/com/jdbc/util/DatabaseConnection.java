@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DatabaseConnection {
+    //Class for establishing a connection with the database
 
+    //Connection singleton
     private static Connection con = null;
 
     public static Connection getConnection() {
         return con;
     }
 
+    //Static code block for instantiating the connection
     static {
 
         String url = "jdbc:postgresql://localhost:5432/AP_DB";

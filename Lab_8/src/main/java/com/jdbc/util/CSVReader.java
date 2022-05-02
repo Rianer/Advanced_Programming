@@ -13,15 +13,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CSVReader {
+    //Class used to read and store data from a CSV file
+    //required data format:
+    //CountryName,CapitalName,CapitalLatitude,CapitalLongitude,CountryCode,ContinentName
     private List<List<String>> records = new ArrayList<>();
     private PostgresSQLDAO dao = new PostgresSQLDAO();
 
-    public void readCSV(String path) throws SQLException{
+    public void processCSV(String path) throws SQLException{
         parseCSVFile(path);
         saveData();
     }
 
     private void parseCSVFile(String path){
+        //Reads CSV document by line and stores information in a table
         boolean first = true;
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -41,6 +45,7 @@ public class CSVReader {
     }
 
     private void saveData() throws SQLException {
+        //For all read fields, stores corresponding data in the database
         for(List<String> parser : records){
             Continent continent = new Continent();
             continent.setName(parser.get(5));

@@ -1,6 +1,7 @@
 package com.jdbc.models;
 
 public class City {
+    //Class to represent a model of a city as stored in the DB
     private int id;
     private String name;
     private String latitude;

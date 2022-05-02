@@ -7,8 +7,10 @@ import java.sql.SQLException;
 
 
 public class MeasureTool{
+    //Class used to measure distances between 2 cities in KM
 
     private class Coordinates{
+        //As the name implies, this class stores the information about the coordinates of a city
         public double latitude;
         public double longitude;
 
@@ -37,6 +39,11 @@ public class MeasureTool{
     }
 
     public double calculateDistance(String firstCity, String secondCity) throws SQLException {
+        //firstCity, seconCity - 2 strings corresponding to the names of each city as found in the DB
+        //Calculates the distance between firstCity's coordinates and secondCity's coordinates
+        //Returns the distance in KM between the 2 cities
+        //Returns -1 if firstCity was not identified in the database
+        //Returns -2 if secondCity was not identified in the database
         PostgresSQLDAO dao = new PostgresSQLDAO();
 
         if(!dao.isDataPresent("cities", "name", firstCity)){

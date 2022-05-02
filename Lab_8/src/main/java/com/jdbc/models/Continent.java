@@ -3,6 +3,7 @@ package com.jdbc.models;
 import com.jdbc.dao.ContinentDAO;
 
 public class Continent {
+    //Class to represent a model of a continent as stored in the DB
     private int id;
     private String name;
 

@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PostgresSQLDAO implements CountryDAO, ContinentDAO, CityDAO {
+    //Data Access Object class for PostgreSQL database
 
     private final Connection con
             = DatabaseConnection.getConnection();
