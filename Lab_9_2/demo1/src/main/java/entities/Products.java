@@ -15,17 +15,17 @@ public class Products {
     @Column(name = "quantity")
     private int quantity;
     @Basic
-    @Column(name = "id_company", insertable = false, updatable = false)
-    private int idCompany;
+    @Column(name = "id_company", insertable = false, updatable = false, nullable = true)
+    private Integer idCompany;
     @Basic
-    @Column(name = "id_client", insertable = false, updatable = false)
-    private int idClient;
+    @Column(name = "id_client", insertable = false, updatable = false, nullable = true)
+    private Integer idClient;
     @ManyToOne
     @JoinColumn(name = "id_company", referencedColumnName = "id", nullable = true)
-    private Companies companiesByIdCompany;
+    private Companies referencedCompany;
     @ManyToOne
     @JoinColumn(name = "id_client", referencedColumnName = "id", nullable = true)
-    private Clients clientsByIdClient;
+    private Clients referencedClient;
 
     public int getId() {
         return id;
@@ -93,20 +93,20 @@ public class Products {
         return result;
     }
 
-    public Companies getCompaniesByIdCompany() {
-        return companiesByIdCompany;
+    public Companies getReferencedCompany() {
+        return referencedCompany;
     }
 
-    public void setCompaniesByIdCompany(Companies companiesByIdCompany) {
-        this.companiesByIdCompany = companiesByIdCompany;
+    public void setReferencedCompany(Companies referencedCompany) {
+        this.referencedCompany = referencedCompany;
     }
 
-    public Clients getClientsByIdClient() {
-        return clientsByIdClient;
+    public Clients getReferencedClient() {
+        return referencedClient;
     }
 
-    public void setClientsByIdClient(Clients clientsByIdClient) {
-        this.clientsByIdClient = clientsByIdClient;
+    public void setReferencedClient(Clients referencedClient) {
+        this.referencedClient = referencedClient;
     }
 
     @Override
@@ -115,8 +115,10 @@ public class Products {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
-                ", companiesByIdCompany=" + companiesByIdCompany +
-                ", clientsByIdClient=" + clientsByIdClient +
+                ", idCompany=" + idCompany +
+                ", idClient=" + idClient +
+                ", referencedCompany=" + referencedCompany +
+                ", referencedClient=" + referencedClient +
                 '}';
     }
 }
