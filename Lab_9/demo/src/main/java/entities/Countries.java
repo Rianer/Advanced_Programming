@@ -3,8 +3,8 @@ package entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "countries", schema = "public", catalog = "AP_DB")
-public class CountriesEntity {
+public class Countries {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -18,6 +18,16 @@ public class CountriesEntity {
     @Basic
     @Column(name = "code")
     private String code;
+
+    public Countries() {
+    }
+
+    public Countries(int id, String name, String continent, String code) {
+        this.id = id;
+        this.name = name;
+        this.continent = continent;
+        this.code = code;
+    }
 
     public int getId() {
         return id;
@@ -56,12 +66,12 @@ public class CountriesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CountriesEntity that = (CountriesEntity) o;
+        Countries countries = (Countries) o;
 
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (continent != null ? !continent.equals(that.continent) : that.continent != null) return false;
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (id != countries.id) return false;
+        if (name != null ? !name.equals(countries.name) : countries.name != null) return false;
+        if (continent != null ? !continent.equals(countries.continent) : countries.continent != null) return false;
+        if (code != null ? !code.equals(countries.code) : countries.code != null) return false;
 
         return true;
     }
@@ -73,5 +83,15 @@ public class CountriesEntity {
         result = 31 * result + (continent != null ? continent.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Countries{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", continent='" + continent + '\'' +
+                ", code='" + code + '\'' +
+                '}';
     }
 }

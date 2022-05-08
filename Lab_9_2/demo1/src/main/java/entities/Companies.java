@@ -3,8 +3,7 @@ package entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "continents", schema = "public", catalog = "AP_DB")
-public class ContinentsEntity {
+public class Companies {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -34,10 +33,10 @@ public class ContinentsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ContinentsEntity that = (ContinentsEntity) o;
+        Companies companies = (Companies) o;
 
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (id != companies.id) return false;
+        if (name != null ? !name.equals(companies.name) : companies.name != null) return false;
 
         return true;
     }
@@ -47,5 +46,13 @@ public class ContinentsEntity {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Companies{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

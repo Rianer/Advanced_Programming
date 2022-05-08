@@ -1,17 +1,24 @@
-import entities.CitiesEntity;
+import entities.Continents;
+import entities.Countries;
+import repository.CountryRepository;
 import util.DataBaseEM;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 public class Main {
     public static void main (String[] argv){
-        EntityManagerFactory entityManagerFactory = DataBaseEM.getInstance();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = DataBaseEM.getInstance();
         //EntityTransaction transaction = entityManager.getTransaction();
-        CitiesEntity city = entityManager.find(CitiesEntity.class, 3);
-        System.out.println(city);
+        /*CitiesEntity city = entityManager.find(CitiesEntity.class, 3);
+        System.out.println(city);*/
+        CountryRepository cr = new CountryRepository();
+        System.out.println(cr.findById(5));
+        //Countries countries = new Countries(300, "China", "Asia", "Code");
+        //cr.save(countries);
+        /*Continents continent = new Continents();
+        continent.setId(8);
+        continent.setName("Pangaea");
+        DataBaseEM.getInstance().persist(continent);*/
+
     }
 }
