@@ -46,6 +46,7 @@ public class Main {
         //Measuring distance between 2 cities
         MeasureTool mt = new MeasureTool();
         System.out.println(mt.calculateDistance("Paris", "Lisbon"));
-
+        System.out.println(mt.calculateDistance("London", "Brasilia"));
+        System.out.println(mt.calculateDistance("Fake City", "Unrecorded City"));
     }
 }
