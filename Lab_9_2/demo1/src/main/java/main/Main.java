@@ -25,26 +25,7 @@ public class Main {
             ProductsRepository pr = new ProductsRepository();
             ClientsRepository clientsRepository = new ClientsRepository();
             CompaniesRepository companiesRepository = new CompaniesRepository();
-
-            /*Clients client = new Clients();
-            client.setName("Rick");
-
-            Companies company = new Companies();
-            company.setName("BlueIndustries");
-
-            Products product = new Products();
-            product.setName("Secret Item");
-            product.setQuantity(3);
-            product.setReferencedCompany(company);
-            product.setReferencedClient(client);*/
-
-            /*clientsRepository.save(client);
-            companiesRepository.save(company);
-            pr.save(product);*/
-
-            /*for(Products iter : pr.findAll()){
-                System.out.println(iter);
-            }*/
+            
             DataFiller df = new DataFiller(5000);
             df.fillData();
             transaction.commit();
