@@ -7,10 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
-public class ClientsRepository implements CrudRepository{
+public class ClientsRepository implements CrudRepository<Clients>{
     private EntityManager em = DBAccess.getInstance();
+
     @Override
     public int count() {
 
@@ -44,22 +47,63 @@ public class ClientsRepository implements CrudRepository{
     }
 
     @Override
-    public Iterable<Object> findAll() {
-        ArrayList<Object> resultList = new ArrayList<>();
+    public Iterable<Clients> findAll() {
+        ArrayList<Clients> resultList = new ArrayList<>();
         Query findQuerry = em.createNativeQuery("SELECT * FROM clients");
-        for(Object iterator : findQuerry.getResultList()){
-            resultList.add(iterator);
+
+        List<Object> result = (List<Object>) findQuerry.getResultList();
+        Iterator itr = result.iterator();
+        while(itr.hasNext()){
+            Clients client = new Clients();
+            Object[] obj = (Object[]) itr.next();
+            Integer client_id = Integer.parseInt(String.valueOf(obj[0]));
+            String client_name = String.valueOf(obj[1]);
+            client.setName(client_name);
+            client.setId(client_id);
+            resultList.add(client);
         }
         return resultList;
     }
 
     @Override
-    public Optional<Object> findById(int id) {
-        return Optional.empty();
+    public Optional<Clients> findById(int id) {
+        Query findQuery = em.createNativeQuery("SELECT * FROM clients WHERE id = ?1");
+        findQuery.setParameter(1, id);
+
+        Clients client = new Clients();
+        List<Object> result = (List<Object>) findQuery.getResultList();
+        Iterator itr = result.iterator();
+        while(itr.hasNext()){
+            Object[] obj = (Object[]) itr.next();
+            Integer client_id = Integer.parseInt(String.valueOf(obj[0]));
+            String client_name = String.valueOf(obj[1]);
+            client.setName(client_name);
+            client.setId(client_id);
+        }
+        return Optional.of(client);
     }
 
     @Override
-    public void save(Object o) {
+    public void save(Clients o) {
+        em.persist(o);
+    }
 
+    public ArrayList<Clients> findByName(String name){
+        ArrayList<Clients> resultList = new ArrayList<>();
+        Query findQuerry = em.createNativeQuery("SELECT * FROM clients WHERE name=?1");
+        findQuerry.setParameter(1, name);
+
+        List<Object> querryResultList = (List<Object>) findQuerry.getResultList();
+        Iterator itr = querryResultList.iterator();
+        while(itr.hasNext()){
+            Clients client = new Clients();
+            Object[] obj = (Object[]) itr.next();
+            Integer client_id = Integer.parseInt(String.valueOf(obj[0]));
+            String client_name = String.valueOf(obj[1]);
+            client.setName(client_name);
+            client.setId(client_id);
+            resultList.add(client);
+        }
+        return resultList;
     }
 }

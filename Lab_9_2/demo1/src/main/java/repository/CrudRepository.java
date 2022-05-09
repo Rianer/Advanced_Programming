@@ -2,7 +2,7 @@ package repository;
 
 import java.util.Optional;
 
-public interface CrudRepository {
+public interface CrudRepository<T> {
     int count();
 
     void deleteAll();
@@ -11,10 +11,10 @@ public interface CrudRepository {
 
     boolean existsById(int id);
 
-    Iterable<Object> findAll();
+    Iterable<T> findAll();
 
-    Optional<Object> findById(int id);
+    Optional<T> findById(int id);
 
-    void save(Object o);
+    void save(T o);
 
 }

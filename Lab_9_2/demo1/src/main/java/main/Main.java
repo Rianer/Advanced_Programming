@@ -4,14 +4,15 @@ import entities.Clients;
 import entities.Companies;
 import entities.Products;
 import repository.ClientsRepository;
+import repository.CompaniesRepository;
+import repository.CrudRepository;
+import repository.ProductsRepository;
 import util.DBAccess;
+import util.DataFiller;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,32 +22,31 @@ public class Main {
         try {
             transaction.begin();
 
-            Clients client = new Clients();
-            client.setName("John");
+            ProductsRepository pr = new ProductsRepository();
+            ClientsRepository clientsRepository = new ClientsRepository();
+            CompaniesRepository companiesRepository = new CompaniesRepository();
+
+            /*Clients client = new Clients();
+            client.setName("Rick");
 
             Companies company = new Companies();
-            company.setName("BMW");
+            company.setName("BlueIndustries");
 
             Products product = new Products();
-            product.setReferencedClient(client);
+            product.setName("Secret Item");
+            product.setQuantity(3);
             product.setReferencedCompany(company);
-            product.setQuantity(4);
-            product.setName("3 Series");
+            product.setReferencedClient(client);*/
 
-            /*entityManager.persist(company);
-            entityManager.persist(client);
-            entityManager.persist(product);*/
+            /*clientsRepository.save(client);
+            companiesRepository.save(company);
+            pr.save(product);*/
 
-            System.out.println(entityManager.find(Clients.class, 3));
-            System.out.println(entityManager.find(Products.class, 3));
-            entityManager.persist(client);
-            ClientsRepository cr = new ClientsRepository();
-            System.out.println(cr.existsById(13));
-            Iterable<Object> list = new ArrayList<>();
-            list = cr.findAll();
-            for(Object o : list){
-                System.out.println(o);
-            }
+            /*for(Products iter : pr.findAll()){
+                System.out.println(iter);
+            }*/
+            DataFiller df = new DataFiller(5000);
+            df.fillData();
             transaction.commit();
         } finally {
             if(transaction.isActive()){
