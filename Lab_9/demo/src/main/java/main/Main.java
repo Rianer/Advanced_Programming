@@ -25,7 +25,7 @@ public class Main {
             CountriesRepository cntrR = new CountriesRepository();
             CitiesRepository cityR = new CitiesRepository();
 
-            Continents continents = new Continents();
+            /*Continents continents = new Continents();
             continents.setName("Asia");
 
             Countries country = new Countries();
@@ -37,16 +37,12 @@ public class Main {
             city.setName("Beijing");
             city.setLatitude("116.3975");
             city.setLongitude("39.906667");
-            city.setReferencedCountry(country);
+            city.setReferencedCountry(country);*/
 
-            //cntrR.save(country);
-            //System.out.println(cityR.findAll());
-            DataFiller df = new DataFiller(10000);
+
+            DataFiller df = new DataFiller(5000);
             df.fillData();
             System.out.println("Total cities: " + cityR.count());
-            /*for(Cities iterator : cityR.findAll()){
-                System.out.println(iterator);
-            }*/
 
             transaction.commit();
         }finally {
