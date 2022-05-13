@@ -1,31 +1,42 @@
 package main;
 
+import client_io.RequestDecoder;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ClientThread extends Thread{
-    private Socket socket = null ;
-    public ClientThread (Socket socket) { this.socket = socket ; }
-    public void run () {
+public class ClientThread extends Thread {
+
+
+    private Socket socket = null;
+    private ServerSocket serverSocket = null;
+    private RequestDecoder requestDecoder;
+    private boolean servingClient;
+
+    public ClientThread(Socket socket, ServerSocket serverSocket) {
+        this.socket = socket;
+        this.serverSocket = serverSocket;
+        this.requestDecoder = new RequestDecoder();
+        this.servingClient = true;
+    }
+
+    public void run() {
         try {
-            boolean running = true;
-            int userCommandCode = 0;
-            while(running){
+            while (servingClient) {
 
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
                 String request = in.readLine();
-                if(request.equals("stop")) userCommandCode = 1;
+
+                String response = processRequest(request);
 
                 PrintWriter out = new PrintWriter(socket.getOutputStream());
-                String response = "Server received request: " + request;
                 out.println(response);
                 out.flush();
-
-                if(userCommandCode == 1) running = false;
             }
 
         } catch (IOException e) {
@@ -33,8 +44,24 @@ public class ClientThread extends Thread{
         } finally {
             try {
                 socket.close(); // or use try-with-resources
-            } catch (IOException e) { System.err.println (e); }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
+    private String processRequest(String request) throws IOException {
+        if (requestDecoder.decodeRequest(request) == RequestDecoder.STOP_CODE) {
+            serverSocket.close();
+            return "Server stopped";
+        }
+        if (requestDecoder.decodeRequest(request) == RequestDecoder.UNKNOWN_REQUEST_CODE) {
+            return "Server received unknown request: " + request;
+        }
+        if (requestDecoder.decodeRequest(request) == RequestDecoder.CLIENT_EXIT_CODE) {
+            servingClient = false;
+            return "Closing connection...";
+        }
+        return "Server received the request " + request;
+    }
 }

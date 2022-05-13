@@ -5,22 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d09ea5c8-8262-4f0f-b395-ef89826e1e53" name="Changes" comment="Request Decoder">
-      <change afterPath="$PROJECT_DIR$/../client/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/src/main/java/client/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/src/main/java/main/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/client_io/RequestDecoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/client_io/RequestHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/src/main/java/client/ServerCommunication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/client/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client_io/RequestDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client_io/RequestDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client_io/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client_io/RequestHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/ClientThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/ClientThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/SimpleClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/SimpleServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +52,7 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Main" />
-      <module name="demo" />
+      <module name="server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="main.*" />
@@ -72,7 +65,7 @@
     </configuration>
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Server" />
-      <module name="demo" />
+      <module name="server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="main.*" />
@@ -85,7 +78,7 @@
     </configuration>
     <configuration name="main.SimpleClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.SimpleClient" />
-      <module name="demo" />
+      <module name="server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="main.*" />
@@ -114,6 +107,9 @@
       <workItem from="1652101427251" duration="1743000" />
       <workItem from="1652338142306" duration="285000" />
       <workItem from="1652425618437" duration="5327000" />
+      <workItem from="1652463999536" duration="91000" />
+      <workItem from="1652464097432" duration="9000" />
+      <workItem from="1652464117250" duration="3218000" />
     </task>
     <task id="LOCAL-00001" summary="Setup">
       <created>1652338159032</created>
