@@ -11,14 +11,23 @@ public class ClientThread extends Thread{
     public ClientThread (Socket socket) { this.socket = socket ; }
     public void run () {
         try {
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(socket.getInputStream()));
-            String request = in.readLine();
-            // Send the response to the oputput stream: server → client
-            PrintWriter out = new PrintWriter(socket.getOutputStream());
-            String response = "Hello " + request + "!";
-            out.println(response);
-            out.flush();
+            boolean running = true;
+            int userCommandCode = 0;
+            while(running){
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(socket.getInputStream()));
+                String request = in.readLine();
+                if(request.equals("stop")) userCommandCode = 1;
+
+                PrintWriter out = new PrintWriter(socket.getOutputStream());
+                String response = "Server received request: " + request;
+                out.println(response);
+                out.flush();
+
+                if(userCommandCode == 1) running = false;
+            }
+
         } catch (IOException e) {
             System.err.println("Communication error... " + e);
         } finally {

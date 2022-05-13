@@ -4,10 +4,18 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SimpleServer {
-    public static final int PORT = 8100;
-    public SimpleServer() throws IOException {
-        ServerSocket serverSocket = null ;
+public class Server {
+    private int PORT;
+    public Server(){
+        this.PORT = 8100;
+    }
+
+    public Server(int PORT){
+        this.PORT = PORT;
+    }
+
+    public void runServer() throws IOException{
+        ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(PORT);
             while (true) {
@@ -16,13 +24,11 @@ public class SimpleServer {
                 new ClientThread(socket).start();
             }
         } catch (IOException e) {
-            System.err. println ("Ooops... " + e);
+            System.err. println ("Error: " + e);
         } finally {
             serverSocket.close();
         }
     }
-    public static void main ( String [] args ) throws IOException {
-        SimpleServer server = new SimpleServer ();
-    }
+
 
 }
