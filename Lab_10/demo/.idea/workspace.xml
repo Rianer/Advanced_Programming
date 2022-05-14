@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d09ea5c8-8262-4f0f-b395-ef89826e1e53" name="Changes" comment="Request Decoder">
-      <change afterPath="$PROJECT_DIR$/../client/src/main/java/client/ServerCommunication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/client/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client_io/RequestDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client_io/RequestDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/client_io/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client_io/RequestHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/ClientThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/ClientThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/ClientThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/ClientThread.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +106,8 @@
       <workItem from="1652425618437" duration="5327000" />
       <workItem from="1652463999536" duration="91000" />
       <workItem from="1652464097432" duration="9000" />
-      <workItem from="1652464117250" duration="3218000" />
+      <workItem from="1652464117250" duration="3527000" />
+      <workItem from="1652529672825" duration="5849000" />
     </task>
     <task id="LOCAL-00001" summary="Setup">
       <created>1652338159032</created>
