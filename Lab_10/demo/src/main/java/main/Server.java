@@ -9,31 +9,31 @@ public class Server {
 
     public volatile static int serverStatus = 1;
     private int PORT;
-    public Server(){
+
+    public Server() {
         this.PORT = 8100;
     }
 
-    public Server(int PORT){
+    public Server(int PORT) {
         this.PORT = PORT;
     }
 
-    public void runServer() throws IOException{
+    public void runServer() throws IOException {
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(PORT);
             while (true) {
-                if(serverStatus == 0) {
+                if (serverStatus == 0) {
                     System.out.println("Shutting down...");
                 }
-                System.out.println ("Waiting for a client ...");
+                System.out.println("Waiting for a client ...");
                 Socket socket = serverSocket.accept();
                 new ClientThread(socket, serverSocket).start();
             }
         } catch (IOException e) {
-            if(e.getClass() == SocketException.class){
+            if (e.getClass() == SocketException.class) {
                 System.out.println(e.getMessage());
-            }
-            else System.err. println ("Error: " + e);
+            } else System.err.println("Error: " + e);
         } finally {
             serverSocket.close();
         }

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class ServerCommunication {
 
@@ -32,9 +34,21 @@ public class ServerCommunication {
         while(running){
             request = clientInput.readLine();
             out.println(request);
-            if(request.equals("exit")) running = false;
-            String response = in.readLine ();
+            if(request.toLowerCase().equals("exit")) running = false;
+            //String response = in.readLine ();
+            //String response = in.lines().collect(Collectors.joining());
+            String response = getResponse();
             System.out.println(response);
         }
+    }
+
+    private String getResponse() throws IOException {
+        String response = new String();
+        while (true){
+            char charBuff = (char)in.read();
+            if(charBuff == '*') break;
+            response+=charBuff;
+        }
+        return response;
     }
 }
