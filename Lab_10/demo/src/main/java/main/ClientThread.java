@@ -69,11 +69,10 @@ public class ClientThread extends Thread {
 
     private Socket socket = null;
     private ServerSocket serverSocket = null;
-    private RequestDecoder requestDecoder;
+    private final RequestDecoder requestDecoder;
     private boolean servingClient;
-
     private User currentUser;
-    private final PostgresSQLDAO sqldao = new PostgresSQLDAO();
+    private final PostgresSQLDAO sqldao = new PostgresSQLDAO(); //For DB manipulation
     public ClientThread(Socket socket, ServerSocket serverSocket) {
         this.socket = socket;
         this.serverSocket = serverSocket;
@@ -83,10 +82,11 @@ public class ClientThread extends Thread {
     }
 
     public void run() {
+        //Thread responsible for communicating with the client
         try {
             Timeout timer = new Timeout(socket, 60);
             timer.start();
-            while (servingClient) {
+            while (servingClient) { //Main While loop
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
                 String request = in.readLine();
@@ -102,7 +102,7 @@ public class ClientThread extends Thread {
             System.out.println(e.getMessage());
         } finally {
             try {
-                socket.close(); // or use try-with-resources
+                socket.close();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

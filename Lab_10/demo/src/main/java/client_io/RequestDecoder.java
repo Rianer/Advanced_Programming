@@ -49,7 +49,7 @@ public class RequestDecoder {
         if(clientRequest.toLowerCase().startsWith("send ")){
             return  SEND_MESSAGE_CODE;
         }
-        if(clientRequest.toLowerCase().trim().equals("read all")){
+        if(clientRequest.toLowerCase().trim().equals("read")){
             return  READ_MESSAGES_CODE;
         }
         if(clientRequest.toLowerCase().startsWith("read from ")){
