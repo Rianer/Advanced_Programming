@@ -1,0 +1,13 @@
+
+Lab_10/demo/target/classes/util/DatabaseConnection.class
+Lab_10/demo/target/classes/models/User.class
+Lab_10/demo/target/classes/models/Message.class
+Lab_10/demo/target/classes/main/ClientThread$Timeout.class
+Lab_10/demo/target/classes/main/ClientThread$Control.class
+Lab_10/demo/target/classes/database/DatabaseConnection.class
+Lab_10/demo/target/classes/DAO/UserDAO.class
+Lab_10/demo/target/classes/DAO/PostgresSQLDAO.class
+Lab_10/demo/target/classes/DAO/MessageDAO.class
+Lab_10/demo/target/classes/DAO/FriendDAO.class
+Lab_10/demo/target/classes/client_io/RequestDecoder.class
+Lab_10/client/target/classes/client/ServerCommunication.class
