@@ -179,9 +179,9 @@ public class PostgresSQLDAO implements FriendDAO, UserDAO, MessageDAO {
     }
 
     @Override
-    public int deleteReceivedMessages(String userName) throws SQLException {
+    public int deleteReceivedMessagesFrom(String userName) throws SQLException {
         User sender = getUser(userName);
-        String sql = "DELETE FROM messages WHERE user_id = ?";
+        String sql = "DELETE FROM messages WHERE sender_id = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, sender.getId());
         return ps.executeUpdate();
@@ -192,6 +192,20 @@ public class PostgresSQLDAO implements FriendDAO, UserDAO, MessageDAO {
         String sql = "DELETE FROM messages WHERE sender_id = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, userId);
+        return ps.executeUpdate();
+    }
+
+    @Override
+    public int deleteFriend(int userId, String friendName) throws SQLException {
+        String sql = "DELETE FROM friends WHERE user_id = ? AND friend_id = ?";
+        User friend = getUser(friendName);
+        if(friend == null){
+            return -1;
+        }
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, userId);
+        ps.setInt(2, getUser(friendName).getId());
+
         return ps.executeUpdate();
     }
 }

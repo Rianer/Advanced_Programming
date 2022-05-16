@@ -156,6 +156,9 @@ public class ClientThread extends Thread {
         if(requestDecoder.decodeRequest(request) == RequestDecoder.DELETE_SENT_MESS_CODE){
             return deleteSentMessages();
         }
+        if(requestDecoder.decodeRequest(request) == RequestDecoder.DELETE_FRIEND_CODE){
+            return deleteFriend(request);
+        }
         return "Server received the request " + request;
     }
 
@@ -325,7 +328,7 @@ public class ClientThread extends Thread {
     private String deleteReceivedMessages(String request){
         String name = request.substring(11).trim();
         try{
-            sqldao.deleteReceivedMessages(name);
+            sqldao.deleteReceivedMessagesFrom(name);
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
@@ -341,5 +344,19 @@ public class ClientThread extends Thread {
             System.out.println(e.getMessage());
         }
         return "Deleted all sent messages!";
+    }
+
+    private String deleteFriend(String request){
+        int executionCode = 0;
+        String friendName = request.substring(13).trim();
+        try{
+            executionCode = sqldao.deleteFriend(currentUser.getId(), friendName);
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        if(executionCode == -1) return "User " + friendName + " not found in database!";
+        if(executionCode == 0) return "User " + friendName + " not found in friend list!";
+        return "Removed " + friendName + " from friend list!";
     }
 }
