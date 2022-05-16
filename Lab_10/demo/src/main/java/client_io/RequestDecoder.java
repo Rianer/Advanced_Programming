@@ -18,6 +18,7 @@ public class RequestDecoder {
     public static final int DELETE_RECEIVED_MESS_CODE = 11;
     public static final int DELETE_SENT_MESS_CODE = 12;
     public static final int DELETE_FRIEND_CODE = 13;
+    public static final int DELETE_USER_FROM_DB_CODE = 14;
 
     public RequestDecoder() {
     }
@@ -60,8 +61,11 @@ public class RequestDecoder {
         if(clientRequest.toLowerCase().trim().equals("delete messages")){
             return  DELETE_SENT_MESS_CODE;
         }
-        if(clientRequest.toLowerCase().trim().startsWith("delete friend ")){
+        if(clientRequest.toLowerCase().trim().startsWith("remove friend ")){
             return  DELETE_FRIEND_CODE;
+        }
+        if(clientRequest.toLowerCase().trim().startsWith("delete user ")){
+            return  DELETE_USER_FROM_DB_CODE;
         }
         return UNKNOWN_REQUEST_CODE;
     }

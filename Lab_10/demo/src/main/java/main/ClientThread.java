@@ -159,6 +159,9 @@ public class ClientThread extends Thread {
         if(requestDecoder.decodeRequest(request) == RequestDecoder.DELETE_FRIEND_CODE){
             return deleteFriend(request);
         }
+        if(requestDecoder.decodeRequest(request) == RequestDecoder.DELETE_USER_FROM_DB_CODE){
+            return deleteUser(request);
+        }
         return "Server received the request " + request;
     }
 
@@ -180,9 +183,12 @@ public class ClientThread extends Thread {
 
     private String addUserToDB(String request){
         String userName = request.substring(8).trim();
+        int executionCode = 0;
         if(userName.contains("*")) return "Forbidden character: '*' !";
+        if(userName.contains(" ")) return "Forbidden character: ' ' !";
         try{
-            sqldao.addUser(userName);
+            executionCode = sqldao.addUser(userName);
+            if(executionCode == -1) return "User with name " + userName + " is already registered!";
             return "Added user " + userName + " to database!";
         }
         catch (SQLException e){
@@ -327,13 +333,15 @@ public class ClientThread extends Thread {
 
     private String deleteReceivedMessages(String request){
         String name = request.substring(11).trim();
+        int executionCode = 0;
         try{
-            sqldao.deleteReceivedMessagesFrom(name);
+            executionCode = sqldao.deleteReceivedMessagesFrom(name);
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
         }
-        return "All inbox cleared!";
+        if(executionCode == 0) return "No messages from user " + name + " have been recorded";
+        return "Messages from user " + name + " have been deleted!";
     }
 
     private String deleteSentMessages(){
@@ -358,5 +366,21 @@ public class ClientThread extends Thread {
         if(executionCode == -1) return "User " + friendName + " not found in database!";
         if(executionCode == 0) return "User " + friendName + " not found in friend list!";
         return "Removed " + friendName + " from friend list!";
+    }
+
+    private String deleteUser(String request){
+        if(currentUser.getId() != 1) return "Only admin user may delete other users!";
+        User target = new User();
+        int executionCode = 0;
+        try{
+            target = sqldao.getUser(request.substring(11).trim());
+            if(target == null) return "No user with name [ " + request.substring(11).trim() + " ] found!";
+            if(target.getId() == 1) return "Can not delete an admin user!";
+            executionCode = sqldao.deleteUser(target.getId());
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return "User [ " + target.getName() + " ] deleted!";
     }
 }

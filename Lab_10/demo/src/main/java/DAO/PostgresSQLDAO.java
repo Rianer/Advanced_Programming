@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PropertyResourceBundle;
 
 public class PostgresSQLDAO implements FriendDAO, UserDAO, MessageDAO {
 
@@ -205,6 +206,15 @@ public class PostgresSQLDAO implements FriendDAO, UserDAO, MessageDAO {
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, userId);
         ps.setInt(2, getUser(friendName).getId());
+
+        return ps.executeUpdate();
+    }
+
+    @Override
+    public int deleteUser(int id) throws SQLException {
+        String sql = "DELETE FROM users WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
 
         return ps.executeUpdate();
     }
